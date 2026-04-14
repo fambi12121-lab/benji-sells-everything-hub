@@ -70,7 +70,7 @@ const Store = () => {
                 <div className="p-5">
                   <h3 className="font-semibold mb-1">{p.name}</h3>
                   <p className="font-heading text-2xl text-primary mb-4">{p.price}</p>
-                  <Button className="w-full gold-gradient text-primary-foreground hover:opacity-90">
+                  <Button className="w-full gold-gradient text-primary-foreground hover:opacity-90" onClick={() => addItem({ id: p.id, name: p.name, price: p.price, priceNum: p.priceNum, img: p.img })}>
                     <ShoppingCart size={16} className="mr-2" /> Add to Cart
                   </Button>
                 </div>
