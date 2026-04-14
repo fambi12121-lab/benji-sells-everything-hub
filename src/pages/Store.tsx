@@ -16,6 +16,14 @@ import walletImg from "@/assets/products/wallet.jpg";
 import sunglassesImg from "@/assets/products/sunglasses.jpg";
 import phonecaseImg from "@/assets/products/phonecase.jpg";
 import powerbankImg from "@/assets/products/powerbank.jpg";
+import backpackImg from "@/assets/products/backpack.jpg";
+import mouseImg from "@/assets/products/mouse.jpg";
+import mugsImg from "@/assets/products/mugs.jpg";
+import wristwatchImg from "@/assets/products/wristwatch.jpg";
+import chargerImg from "@/assets/products/charger.jpg";
+import runningshoesImg from "@/assets/products/runningshoes.jpg";
+import candleImg from "@/assets/products/candle.jpg";
+import headphonesImg from "@/assets/products/headphones.jpg";
 
 const categories = [
   { key: "all", label: "All", icon: Sparkles },
@@ -38,6 +46,14 @@ const products = [
   { id: 10, name: "Sunglasses", price: "₦7,500", priceNum: 7500, category: "accessories", img: sunglassesImg },
   { id: 11, name: "Phone Case", price: "₦3,000", priceNum: 3000, category: "accessories", img: phonecaseImg },
   { id: 12, name: "Power Bank 20000mAh", price: "₦14,000", priceNum: 14000, category: "electronics", img: powerbankImg },
+  { id: 13, name: "Laptop Backpack", price: "₦16,000", priceNum: 16000, category: "accessories", img: backpackImg },
+  { id: 14, name: "Gaming Mouse RGB", price: "₦11,000", priceNum: 11000, category: "electronics", img: mouseImg },
+  { id: 15, name: "Ceramic Mug Set", price: "₦7,000", priceNum: 7000, category: "home", img: mugsImg },
+  { id: 16, name: "Gold Wristwatch", price: "₦45,000", priceNum: 45000, category: "accessories", img: wristwatchImg },
+  { id: 17, name: "Wireless Charger", price: "₦8,500", priceNum: 8500, category: "electronics", img: chargerImg },
+  { id: 18, name: "Running Shoes", price: "₦19,000", priceNum: 19000, category: "fashion", img: runningshoesImg },
+  { id: 19, name: "Scented Candle", price: "₦4,500", priceNum: 4500, category: "home", img: candleImg },
+  { id: 20, name: "Premium Headphones", price: "₦35,000", priceNum: 35000, category: "electronics", img: headphonesImg },
 ];
 
 const Store = () => {
