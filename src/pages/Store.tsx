@@ -26,22 +26,23 @@ const categories = [
 ];
 
 const products = [
-  { id: 1, name: "Wireless Earbuds", price: "₦15,000", category: "electronics", img: earbudsImg },
-  { id: 2, name: "Smart Watch", price: "₦25,000", category: "electronics", img: smartwatchImg },
-  { id: 3, name: "Bluetooth Speaker", price: "₦12,000", category: "electronics", img: speakerImg },
-  { id: 4, name: "Men's Polo Shirt", price: "₦8,000", category: "fashion", img: poloImg },
-  { id: 5, name: "Women's Handbag", price: "₦18,000", category: "fashion", img: handbagImg },
-  { id: 6, name: "Sneakers", price: "₦22,000", category: "fashion", img: sneakersImg },
-  { id: 7, name: "LED Desk Lamp", price: "₦6,500", category: "home", img: desklampImg },
-  { id: 8, name: "Throw Pillows (set)", price: "₦9,000", category: "home", img: pillowsImg },
-  { id: 9, name: "Leather Wallet", price: "₦5,000", category: "accessories", img: walletImg },
-  { id: 10, name: "Sunglasses", price: "₦7,500", category: "accessories", img: sunglassesImg },
-  { id: 11, name: "Phone Case", price: "₦3,000", category: "accessories", img: phonecaseImg },
-  { id: 12, name: "Power Bank 20000mAh", price: "₦14,000", category: "electronics", img: powerbankImg },
+  { id: 1, name: "Wireless Earbuds", price: "₦15,000", priceNum: 15000, category: "electronics", img: earbudsImg },
+  { id: 2, name: "Smart Watch", price: "₦25,000", priceNum: 25000, category: "electronics", img: smartwatchImg },
+  { id: 3, name: "Bluetooth Speaker", price: "₦12,000", priceNum: 12000, category: "electronics", img: speakerImg },
+  { id: 4, name: "Men's Polo Shirt", price: "₦8,000", priceNum: 8000, category: "fashion", img: poloImg },
+  { id: 5, name: "Women's Handbag", price: "₦18,000", priceNum: 18000, category: "fashion", img: handbagImg },
+  { id: 6, name: "Sneakers", price: "₦22,000", priceNum: 22000, category: "fashion", img: sneakersImg },
+  { id: 7, name: "LED Desk Lamp", price: "₦6,500", priceNum: 6500, category: "home", img: desklampImg },
+  { id: 8, name: "Throw Pillows (set)", price: "₦9,000", priceNum: 9000, category: "home", img: pillowsImg },
+  { id: 9, name: "Leather Wallet", price: "₦5,000", priceNum: 5000, category: "accessories", img: walletImg },
+  { id: 10, name: "Sunglasses", price: "₦7,500", priceNum: 7500, category: "accessories", img: sunglassesImg },
+  { id: 11, name: "Phone Case", price: "₦3,000", priceNum: 3000, category: "accessories", img: phonecaseImg },
+  { id: 12, name: "Power Bank 20000mAh", price: "₦14,000", priceNum: 14000, category: "electronics", img: powerbankImg },
 ];
 
 const Store = () => {
   const [cat, setCat] = useState("all");
+  const { addItem } = useCart();
   const filtered = cat === "all" ? products : products.filter((p) => p.category === cat);
 
   return (
