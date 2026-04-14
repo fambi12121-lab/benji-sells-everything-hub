@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ShoppingCart, Smartphone, Shirt, Home, Watch, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
+import { useCart } from "@/contexts/CartContext";
 
 import earbudsImg from "@/assets/products/earbuds.jpg";
 import smartwatchImg from "@/assets/products/smartwatch.jpg";
