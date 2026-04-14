@@ -62,6 +62,7 @@ const Navbar = () => {
           <button onClick={() => setOpen(!open)} className="text-secondary-foreground">
             {open ? <X size={24} /> : <Menu size={24} />}
           </button>
+        </div>
       </div>
 
       {/* Mobile menu */}
