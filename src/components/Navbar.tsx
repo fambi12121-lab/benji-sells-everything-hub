@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ShoppingCart } from "lucide-react";
-import { useCart } from "@/contexts/CartContext";
+import { useShopifyCartStore } from "@/stores/shopifyCartStore";
 import benjiLogo from "@/assets/benji-mascot.png";
 
 const navLinks = [
