@@ -5,6 +5,7 @@ import Layout from "@/components/Layout";
 import { useShopifyCartStore } from "@/stores/shopifyCartStore";
 import { storefrontApiRequest, STOREFRONT_PRODUCTS_QUERY, ShopifyProduct } from "@/lib/shopify";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 // Keep local products as fallback when no Shopify products exist
 import earbudsImg from "@/assets/products/earbuds.jpg";
@@ -36,7 +37,6 @@ const categories = [
   { key: "accessories", label: "Accessories", icon: Watch },
 ];
 
-// Local fallback products (used when Shopify has no products yet)
 const localProducts = [
   { id: 1, name: "Wireless Earbuds", price: "₦15,000", priceNum: 15000, category: "electronics", img: earbudsImg },
   { id: 2, name: "Smart Watch", price: "₦25,000", priceNum: 25000, category: "electronics", img: smartwatchImg },
@@ -59,6 +59,24 @@ const localProducts = [
   { id: 19, name: "Scented Candle", price: "₦4,500", priceNum: 4500, category: "home", img: candleImg },
   { id: 20, name: "Premium Headphones", price: "₦35,000", priceNum: 35000, category: "electronics", img: headphonesImg },
 ];
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
+  }),
+};
+
+const scaleIn = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: (i: number) => ({
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.5, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
+  }),
+};
 
 const Store = () => {
   const [cat, setCat] = useState("all");
@@ -103,9 +121,23 @@ const Store = () => {
 
   return (
     <Layout>
-      <section className="dark-section section-padding text-center">
-        <h1 className="font-heading text-6xl md:text-7xl mb-4">Buy & Sell <span className="text-primary">Anything</span></h1>
-        <p className="text-secondary-foreground/70 max-w-xl mx-auto">Electronics, fashion, home items, accessories, and random deals — all in one place.</p>
+      {/* Hero */}
+      <section className="dark-section section-padding text-center overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+        >
+          <span className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-1.5 text-primary text-sm font-semibold mb-6">
+            <ShoppingCart size={14} /> Benji Store
+          </span>
+          <h1 className="font-heading text-7xl md:text-8xl mb-4">
+            Buy & Sell <span className="text-primary">Anything</span>
+          </h1>
+          <p className="text-secondary-foreground/60 max-w-xl mx-auto text-lg">
+            Electronics, fashion, home items, accessories, and random deals — all in one place.
+          </p>
+        </motion.div>
       </section>
 
       <section className="section-padding bg-background">
@@ -117,74 +149,129 @@ const Store = () => {
             </div>
           ) : hasShopifyProducts ? (
             <>
-              <h2 className="font-heading text-4xl mb-8 text-center">Shop <span className="text-primary">Online</span></h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-                {shopifyProducts.map((product) => {
+              <motion.div
+                className="text-center mb-10"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-80px" }}
+              >
+                <motion.span variants={fadeUp} custom={0} className="text-primary font-semibold text-sm tracking-widest uppercase mb-3 block">
+                  Shopify Products
+                </motion.span>
+                <motion.h2 variants={fadeUp} custom={1} className="font-heading text-5xl md:text-6xl">
+                  Shop <span className="text-primary">Online</span>
+                </motion.h2>
+              </motion.div>
+
+              <motion.div
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-20"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-60px" }}
+              >
+                {shopifyProducts.map((product, i) => {
                   const imgUrl = product.node.images?.edges?.[0]?.node?.url;
                   const price = product.node.priceRange.minVariantPrice;
                   return (
-                    <div key={product.node.id} className="bg-card rounded-lg border border-border card-hover overflow-hidden">
-                      <Link to={`/product/${product.node.handle}`}>
-                        <div className="h-48 overflow-hidden bg-muted">
-                          {imgUrl ? (
-                            <img src={imgUrl} alt={product.node.title} loading="lazy" className="w-full h-full object-cover hover:scale-105 transition-transform" />
-                          ) : (
-                            <div className="flex items-center justify-center h-full"><Package size={36} className="text-muted-foreground/30" /></div>
-                          )}
-                        </div>
-                      </Link>
-                      <div className="p-5">
+                    <motion.div key={product.node.id} custom={i} variants={scaleIn}>
+                      <div className="bg-card rounded-xl border border-border overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-2 hover:border-primary/30 h-full flex flex-col">
                         <Link to={`/product/${product.node.handle}`}>
-                          <h3 className="font-semibold mb-1 hover:text-primary transition-colors">{product.node.title}</h3>
+                          <div className="h-52 overflow-hidden bg-muted group">
+                            {imgUrl ? (
+                              <img src={imgUrl} alt={product.node.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                            ) : (
+                              <div className="flex items-center justify-center h-full"><Package size={36} className="text-muted-foreground/30" /></div>
+                            )}
+                          </div>
                         </Link>
-                        <p className="font-heading text-2xl text-primary mb-4">{price.currencyCode} {parseFloat(price.amount).toLocaleString()}</p>
-                        <Button
-                          className="w-full gold-gradient text-primary-foreground hover:opacity-90"
-                          onClick={() => handleAddShopifyItem(product)}
-                          disabled={isCartLoading}
-                        >
-                          {isCartLoading ? <Loader2 size={16} className="mr-2 animate-spin" /> : <ShoppingCart size={16} className="mr-2" />}
-                          Add to Cart
-                        </Button>
+                        <div className="p-5 flex flex-col flex-1">
+                          <Link to={`/product/${product.node.handle}`}>
+                            <h3 className="font-semibold mb-1 hover:text-primary transition-colors">{product.node.title}</h3>
+                          </Link>
+                          <p className="font-heading text-2xl text-primary mb-4">{price.currencyCode} {parseFloat(price.amount).toLocaleString()}</p>
+                          <div className="mt-auto">
+                            <Button
+                              className="w-full gold-gradient text-primary-foreground hover:opacity-90"
+                              onClick={() => handleAddShopifyItem(product)}
+                              disabled={isCartLoading}
+                            >
+                              {isCartLoading ? <Loader2 size={16} className="mr-2 animate-spin" /> : <ShoppingCart size={16} className="mr-2" />}
+                              Add to Cart
+                            </Button>
+                          </div>
+                        </div>
                       </div>
-                    </div>
+                    </motion.div>
                   );
                 })}
-              </div>
+              </motion.div>
             </>
           ) : (
-            <div className="text-center py-12 mb-12 bg-card rounded-lg border border-border">
+            <motion.div
+              className="text-center py-12 mb-12 bg-card rounded-xl border border-border"
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
               <Package size={48} className="mx-auto text-muted-foreground/30 mb-4" />
               <h3 className="font-heading text-2xl mb-2">No Shopify Products Yet</h3>
               <p className="text-muted-foreground text-sm max-w-md mx-auto">
                 Your Shopify store is connected but has no products. Tell me what products you'd like to add (name, price, description) and I'll create them for you!
               </p>
-            </div>
+            </motion.div>
           )}
 
-          {/* Local catalog (always shown as browse section) */}
-          <h2 className="font-heading text-4xl mb-6 text-center">Browse <span className="text-primary">Catalog</span></h2>
-          <div className="flex flex-wrap gap-3 mb-10 justify-center">
+          {/* Local catalog */}
+          <motion.div
+            className="text-center mb-10"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+          >
+            <motion.span variants={fadeUp} custom={0} className="text-primary font-semibold text-sm tracking-widest uppercase mb-3 block">
+              Browse Collection
+            </motion.span>
+            <motion.h2 variants={fadeUp} custom={1} className="font-heading text-5xl md:text-6xl mb-6">
+              Browse <span className="text-primary">Catalog</span>
+            </motion.h2>
+          </motion.div>
+
+          <motion.div
+            className="flex flex-wrap gap-3 mb-10 justify-center"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+          >
             {categories.map((c) => (
               <Button key={c.key} variant={cat === c.key ? "default" : "outline"} onClick={() => setCat(c.key)} className={cat === c.key ? "gold-gradient text-primary-foreground" : ""}>
                 <c.icon size={16} className="mr-2" /> {c.label}
               </Button>
             ))}
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {filteredLocal.map((p) => (
-              <div key={p.id} className="bg-card rounded-lg border border-border card-hover overflow-hidden">
-                <div className="h-48 overflow-hidden">
-                  <img src={p.img} alt={p.name} loading="lazy" className="w-full h-full object-cover" />
+          </motion.div>
+
+          <motion.div
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-40px" }}
+          >
+            {filteredLocal.map((p, i) => (
+              <motion.div key={p.id} custom={i % 8} variants={scaleIn}>
+                <div className="bg-card rounded-xl border border-border overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-2 hover:border-primary/30 h-full">
+                  <div className="h-48 overflow-hidden group">
+                    <img src={p.img} alt={p.name} loading="lazy" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                  </div>
+                  <div className="p-5">
+                    <h3 className="font-semibold mb-1">{p.name}</h3>
+                    <p className="font-heading text-2xl text-primary mb-4">{p.price}</p>
+                    <p className="text-xs text-muted-foreground">Contact to purchase</p>
+                  </div>
                 </div>
-                <div className="p-5">
-                  <h3 className="font-semibold mb-1">{p.name}</h3>
-                  <p className="font-heading text-2xl text-primary mb-4">{p.price}</p>
-                  <p className="text-xs text-muted-foreground">Contact to purchase</p>
-                </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
     </Layout>
