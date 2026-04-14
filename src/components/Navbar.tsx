@@ -39,12 +39,29 @@ const Navbar = () => {
               {l.label}
             </Link>
           ))}
+          <button onClick={() => openCart(true)} className="relative text-secondary-foreground/80 hover:text-primary transition-colors">
+            <ShoppingCart size={22} />
+            {totalItems > 0 && (
+              <span className="absolute -top-2 -right-2 w-5 h-5 rounded-full gold-gradient text-primary-foreground text-xs font-bold flex items-center justify-center">
+                {totalItems}
+              </span>
+            )}
+          </button>
         </div>
 
-        {/* Mobile toggle */}
-        <button onClick={() => setOpen(!open)} className="md:hidden text-secondary-foreground">
-          {open ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        {/* Mobile */}
+        <div className="flex items-center gap-3 md:hidden">
+          <button onClick={() => openCart(true)} className="relative text-secondary-foreground/80 hover:text-primary transition-colors">
+            <ShoppingCart size={22} />
+            {totalItems > 0 && (
+              <span className="absolute -top-2 -right-2 w-5 h-5 rounded-full gold-gradient text-primary-foreground text-xs font-bold flex items-center justify-center">
+                {totalItems}
+              </span>
+            )}
+          </button>
+          <button onClick={() => setOpen(!open)} className="text-secondary-foreground">
+            {open ? <X size={24} /> : <Menu size={24} />}
+          </button>
       </div>
 
       {/* Mobile menu */}
