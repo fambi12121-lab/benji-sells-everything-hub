@@ -1,9 +1,12 @@
-import { useState } from "react";
-import { ShoppingCart, Smartphone, Shirt, Home, Watch, Sparkles } from "lucide-react";
+import { useState, useEffect } from "react";
+import { ShoppingCart, Smartphone, Shirt, Home, Watch, Sparkles, Loader2, Package } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
-import { useCart } from "@/contexts/CartContext";
+import { useShopifyCartStore } from "@/stores/shopifyCartStore";
+import { storefrontApiRequest, STOREFRONT_PRODUCTS_QUERY, ShopifyProduct } from "@/lib/shopify";
+import { Link } from "react-router-dom";
 
+// Keep local products as fallback when no Shopify products exist
 import earbudsImg from "@/assets/products/earbuds.jpg";
 import smartwatchImg from "@/assets/products/smartwatch.jpg";
 import speakerImg from "@/assets/products/speaker.jpg";
@@ -33,7 +36,8 @@ const categories = [
   { key: "accessories", label: "Accessories", icon: Watch },
 ];
 
-const products = [
+// Local fallback products (used when Shopify has no products yet)
+const localProducts = [
   { id: 1, name: "Wireless Earbuds", price: "₦15,000", priceNum: 15000, category: "electronics", img: earbudsImg },
   { id: 2, name: "Smart Watch", price: "₦25,000", priceNum: 25000, category: "electronics", img: smartwatchImg },
   { id: 3, name: "Bluetooth Speaker", price: "₦12,000", priceNum: 12000, category: "electronics", img: speakerImg },
@@ -58,8 +62,44 @@ const products = [
 
 const Store = () => {
   const [cat, setCat] = useState("all");
-  const { addItem } = useCart();
-  const filtered = cat === "all" ? products : products.filter((p) => p.category === cat);
+  const [shopifyProducts, setShopifyProducts] = useState<ShopifyProduct[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [hasShopifyProducts, setHasShopifyProducts] = useState(false);
+  const addItem = useShopifyCartStore((s) => s.addItem);
+  const isCartLoading = useShopifyCartStore((s) => s.isLoading);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const data = await storefrontApiRequest(STOREFRONT_PRODUCTS_QUERY, { first: 50 });
+        const edges = data?.data?.products?.edges || [];
+        if (edges.length > 0) {
+          setShopifyProducts(edges);
+          setHasShopifyProducts(true);
+        }
+      } catch (e) {
+        console.error("Failed to fetch Shopify products:", e);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProducts();
+  }, []);
+
+  const filteredLocal = cat === "all" ? localProducts : localProducts.filter((p) => p.category === cat);
+
+  const handleAddShopifyItem = async (product: ShopifyProduct) => {
+    const variant = product.node.variants.edges[0]?.node;
+    if (!variant) return;
+    await addItem({
+      product,
+      variantId: variant.id,
+      variantTitle: variant.title,
+      price: variant.price,
+      quantity: 1,
+      selectedOptions: variant.selectedOptions || [],
+    });
+  };
 
   return (
     <Layout>
@@ -70,6 +110,60 @@ const Store = () => {
 
       <section className="section-padding bg-background">
         <div className="container mx-auto">
+          {/* Shopify Products */}
+          {loading ? (
+            <div className="flex items-center justify-center py-20">
+              <Loader2 className="w-8 h-8 animate-spin text-primary" />
+            </div>
+          ) : hasShopifyProducts ? (
+            <>
+              <h2 className="font-heading text-4xl mb-8 text-center">Shop <span className="text-primary">Online</span></h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+                {shopifyProducts.map((product) => {
+                  const imgUrl = product.node.images?.edges?.[0]?.node?.url;
+                  const price = product.node.priceRange.minVariantPrice;
+                  return (
+                    <div key={product.node.id} className="bg-card rounded-lg border border-border card-hover overflow-hidden">
+                      <Link to={`/product/${product.node.handle}`}>
+                        <div className="h-48 overflow-hidden bg-muted">
+                          {imgUrl ? (
+                            <img src={imgUrl} alt={product.node.title} loading="lazy" className="w-full h-full object-cover hover:scale-105 transition-transform" />
+                          ) : (
+                            <div className="flex items-center justify-center h-full"><Package size={36} className="text-muted-foreground/30" /></div>
+                          )}
+                        </div>
+                      </Link>
+                      <div className="p-5">
+                        <Link to={`/product/${product.node.handle}`}>
+                          <h3 className="font-semibold mb-1 hover:text-primary transition-colors">{product.node.title}</h3>
+                        </Link>
+                        <p className="font-heading text-2xl text-primary mb-4">{price.currencyCode} {parseFloat(price.amount).toLocaleString()}</p>
+                        <Button
+                          className="w-full gold-gradient text-primary-foreground hover:opacity-90"
+                          onClick={() => handleAddShopifyItem(product)}
+                          disabled={isCartLoading}
+                        >
+                          {isCartLoading ? <Loader2 size={16} className="mr-2 animate-spin" /> : <ShoppingCart size={16} className="mr-2" />}
+                          Add to Cart
+                        </Button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </>
+          ) : (
+            <div className="text-center py-12 mb-12 bg-card rounded-lg border border-border">
+              <Package size={48} className="mx-auto text-muted-foreground/30 mb-4" />
+              <h3 className="font-heading text-2xl mb-2">No Shopify Products Yet</h3>
+              <p className="text-muted-foreground text-sm max-w-md mx-auto">
+                Your Shopify store is connected but has no products. Tell me what products you'd like to add (name, price, description) and I'll create them for you!
+              </p>
+            </div>
+          )}
+
+          {/* Local catalog (always shown as browse section) */}
+          <h2 className="font-heading text-4xl mb-6 text-center">Browse <span className="text-primary">Catalog</span></h2>
           <div className="flex flex-wrap gap-3 mb-10 justify-center">
             {categories.map((c) => (
               <Button key={c.key} variant={cat === c.key ? "default" : "outline"} onClick={() => setCat(c.key)} className={cat === c.key ? "gold-gradient text-primary-foreground" : ""}>
@@ -78,7 +172,7 @@ const Store = () => {
             ))}
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {filtered.map((p) => (
+            {filteredLocal.map((p) => (
               <div key={p.id} className="bg-card rounded-lg border border-border card-hover overflow-hidden">
                 <div className="h-48 overflow-hidden">
                   <img src={p.img} alt={p.name} loading="lazy" className="w-full h-full object-cover" />
@@ -86,9 +180,7 @@ const Store = () => {
                 <div className="p-5">
                   <h3 className="font-semibold mb-1">{p.name}</h3>
                   <p className="font-heading text-2xl text-primary mb-4">{p.price}</p>
-                  <Button className="w-full gold-gradient text-primary-foreground hover:opacity-90" onClick={() => addItem({ id: p.id, name: p.name, price: p.price, priceNum: p.priceNum, img: p.img })}>
-                    <ShoppingCart size={16} className="mr-2" /> Add to Cart
-                  </Button>
+                  <p className="text-xs text-muted-foreground">Contact to purchase</p>
                 </div>
               </div>
             ))}
