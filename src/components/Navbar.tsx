@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ShoppingCart } from "lucide-react";
-import { useCart } from "@/contexts/CartContext";
+import { useShopifyCartStore } from "@/stores/shopifyCartStore";
 import benjiLogo from "@/assets/benji-mascot.png";
 
 const navLinks = [
@@ -16,7 +16,8 @@ const navLinks = [
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const location = useLocation();
-  const { totalItems, setIsOpen: openCart } = useCart();
+  const totalItems = useShopifyCartStore((s) => s.totalItems)();
+  const openCart = (v: boolean) => useShopifyCartStore.getState().setIsOpen(v);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-secondary/95 backdrop-blur-md border-b border-gold/20">
