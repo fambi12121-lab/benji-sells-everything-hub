@@ -27,12 +27,14 @@ const testimonials = [
   { name: "Chidi N.", text: "Amazing media coverage for our wedding. Highly recommend!", role: "Happy Customer" },
 ];
 
+const EASE = [0.22, 1, 0.36, 1] as const;
+
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.6, delay: i * 0.1, ease: EASE as unknown as [number, number, number, number] },
   }),
 };
 
@@ -41,7 +43,7 @@ const scaleIn = {
   visible: (i: number) => ({
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.5, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.5, delay: i * 0.12, ease: EASE as unknown as [number, number, number, number] },
   }),
 };
 
