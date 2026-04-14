@@ -3,6 +3,19 @@ import { ShoppingCart, Smartphone, Shirt, Home, Watch, Sparkles } from "lucide-r
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
 
+import earbudsImg from "@/assets/products/earbuds.jpg";
+import smartwatchImg from "@/assets/products/smartwatch.jpg";
+import speakerImg from "@/assets/products/speaker.jpg";
+import poloImg from "@/assets/products/polo.jpg";
+import handbagImg from "@/assets/products/handbag.jpg";
+import sneakersImg from "@/assets/products/sneakers.jpg";
+import desklampImg from "@/assets/products/desklamp.jpg";
+import pillowsImg from "@/assets/products/pillows.jpg";
+import walletImg from "@/assets/products/wallet.jpg";
+import sunglassesImg from "@/assets/products/sunglasses.jpg";
+import phonecaseImg from "@/assets/products/phonecase.jpg";
+import powerbankImg from "@/assets/products/powerbank.jpg";
+
 const categories = [
   { key: "all", label: "All", icon: Sparkles },
   { key: "electronics", label: "Electronics", icon: Smartphone },
@@ -12,18 +25,18 @@ const categories = [
 ];
 
 const products = [
-  { id: 1, name: "Wireless Earbuds", price: "₦15,000", category: "electronics" },
-  { id: 2, name: "Smart Watch", price: "₦25,000", category: "electronics" },
-  { id: 3, name: "Bluetooth Speaker", price: "₦12,000", category: "electronics" },
-  { id: 4, name: "Men's Polo Shirt", price: "₦8,000", category: "fashion" },
-  { id: 5, name: "Women's Handbag", price: "₦18,000", category: "fashion" },
-  { id: 6, name: "Sneakers", price: "₦22,000", category: "fashion" },
-  { id: 7, name: "LED Desk Lamp", price: "₦6,500", category: "home" },
-  { id: 8, name: "Throw Pillows (set)", price: "₦9,000", category: "home" },
-  { id: 9, name: "Leather Wallet", price: "₦5,000", category: "accessories" },
-  { id: 10, name: "Sunglasses", price: "₦7,500", category: "accessories" },
-  { id: 11, name: "Phone Case", price: "₦3,000", category: "accessories" },
-  { id: 12, name: "Power Bank 20000mAh", price: "₦14,000", category: "electronics" },
+  { id: 1, name: "Wireless Earbuds", price: "₦15,000", category: "electronics", img: earbudsImg },
+  { id: 2, name: "Smart Watch", price: "₦25,000", category: "electronics", img: smartwatchImg },
+  { id: 3, name: "Bluetooth Speaker", price: "₦12,000", category: "electronics", img: speakerImg },
+  { id: 4, name: "Men's Polo Shirt", price: "₦8,000", category: "fashion", img: poloImg },
+  { id: 5, name: "Women's Handbag", price: "₦18,000", category: "fashion", img: handbagImg },
+  { id: 6, name: "Sneakers", price: "₦22,000", category: "fashion", img: sneakersImg },
+  { id: 7, name: "LED Desk Lamp", price: "₦6,500", category: "home", img: desklampImg },
+  { id: 8, name: "Throw Pillows (set)", price: "₦9,000", category: "home", img: pillowsImg },
+  { id: 9, name: "Leather Wallet", price: "₦5,000", category: "accessories", img: walletImg },
+  { id: 10, name: "Sunglasses", price: "₦7,500", category: "accessories", img: sunglassesImg },
+  { id: 11, name: "Phone Case", price: "₦3,000", category: "accessories", img: phonecaseImg },
+  { id: 12, name: "Power Bank 20000mAh", price: "₦14,000", category: "electronics", img: powerbankImg },
 ];
 
 const Store = () => {
@@ -49,8 +62,8 @@ const Store = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {filtered.map((p) => (
               <div key={p.id} className="bg-card rounded-lg border border-border card-hover overflow-hidden">
-                <div className="h-48 bg-muted flex items-center justify-center">
-                  <ShoppingCart size={36} className="text-muted-foreground/30" />
+                <div className="h-48 overflow-hidden">
+                  <img src={p.img} alt={p.name} loading="lazy" className="w-full h-full object-cover" />
                 </div>
                 <div className="p-5">
                   <h3 className="font-semibold mb-1">{p.name}</h3>
