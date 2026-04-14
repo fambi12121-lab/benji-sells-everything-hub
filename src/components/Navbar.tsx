@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ShoppingCart } from "lucide-react";
+import { useCart } from "@/contexts/CartContext";
 import benjiLogo from "@/assets/benji-mascot.png";
 
 const navLinks = [
@@ -15,6 +16,7 @@ const navLinks = [
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const location = useLocation();
+  const { totalItems, setIsOpen: openCart } = useCart();
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-secondary/95 backdrop-blur-md border-b border-gold/20">
@@ -37,12 +39,30 @@ const Navbar = () => {
               {l.label}
             </Link>
           ))}
+          <button onClick={() => openCart(true)} className="relative text-secondary-foreground/80 hover:text-primary transition-colors">
+            <ShoppingCart size={22} />
+            {totalItems > 0 && (
+              <span className="absolute -top-2 -right-2 w-5 h-5 rounded-full gold-gradient text-primary-foreground text-xs font-bold flex items-center justify-center">
+                {totalItems}
+              </span>
+            )}
+          </button>
         </div>
 
-        {/* Mobile toggle */}
-        <button onClick={() => setOpen(!open)} className="md:hidden text-secondary-foreground">
-          {open ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        {/* Mobile */}
+        <div className="flex items-center gap-3 md:hidden">
+          <button onClick={() => openCart(true)} className="relative text-secondary-foreground/80 hover:text-primary transition-colors">
+            <ShoppingCart size={22} />
+            {totalItems > 0 && (
+              <span className="absolute -top-2 -right-2 w-5 h-5 rounded-full gold-gradient text-primary-foreground text-xs font-bold flex items-center justify-center">
+                {totalItems}
+              </span>
+            )}
+          </button>
+          <button onClick={() => setOpen(!open)} className="text-secondary-foreground">
+            {open ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu */}
