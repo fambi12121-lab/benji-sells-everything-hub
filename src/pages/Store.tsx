@@ -122,22 +122,36 @@ const Store = () => {
   return (
     <Layout>
       {/* Hero */}
-      <section className="dark-section section-padding text-center overflow-hidden">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-        >
-          <span className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-1.5 text-primary text-sm font-semibold mb-6">
-            <ShoppingCart size={14} /> Benji Store
-          </span>
-          <h1 className="font-heading text-7xl md:text-8xl mb-4">
-            Buy & Sell <span className="text-primary">Anything</span>
-          </h1>
-          <p className="text-secondary-foreground/60 max-w-xl mx-auto text-lg">
-            Electronics, fashion, home items, accessories, and random deals — all in one place.
-          </p>
-        </motion.div>
+      <section className="relative pt-36 pb-20 px-4 md:px-8 lg:px-16 overflow-hidden bg-background">
+        <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-primary/10 blur-3xl" aria-hidden />
+        <div className="container mx-auto relative">
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="eyebrow mb-6"
+          >
+            ◍ Benji store
+          </motion.p>
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+            className="font-heading text-6xl md:text-9xl leading-[0.92] text-balance max-w-5xl"
+          >
+            Buy & sell
+            <br />
+            <span className="italic text-primary">anything</span>.
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.25, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+            className="mt-8 max-w-xl text-lg text-muted-foreground leading-relaxed"
+          >
+            Electronics, fashion, home items, accessories, and curated everyday deals — all in one trusted place.
+          </motion.p>
+        </div>
       </section>
 
       <section className="section-padding bg-background">
