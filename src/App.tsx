@@ -22,8 +22,8 @@ const AppContent = () => {
     <>
       <Toaster />
       <Sonner />
-      <ShopifyCartSidebar />
       <BrowserRouter>
+        <ShopifyCartSidebar />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/auto-sales" element={<AutoSales />} />
