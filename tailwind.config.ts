@@ -12,8 +12,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        heading: ['"Bebas Neue"', 'sans-serif'],
-        body: ['Barlow', 'sans-serif'],
+        heading: ['"Instrument Serif"', 'ui-serif', 'Georgia', 'serif'],
+        body: ['"Work Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['"Instrument Serif"', 'ui-serif', 'Georgia', 'serif'],
       },
       colors: {
         border: "hsl(var(--border))",

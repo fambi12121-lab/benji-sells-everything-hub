@@ -1,45 +1,74 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* =========================================================
+   Benji — Editorial Blue & White
+   - Crisp white surfaces, deep navy ink
+   - Electric blue accent (replaces former gold)
+   - Instrument Serif display + Work Sans body
+   ========================================================= */
+
 @layer base {
   :root {
-    --background: 40 20% 97%;
-    --foreground: 0 0% 8%;
-    --card: 40 15% 95%;
-    --card-foreground: 0 0% 8%;
-    --popover: 40 20% 97%;
-    --popover-foreground: 0 0% 8%;
-    --primary: 43 80% 50%;
-    --primary-foreground: 0 0% 5%;
-    --secondary: 0 0% 10%;
-    --secondary-foreground: 40 20% 97%;
-    --muted: 40 10% 90%;
-    --muted-foreground: 0 0% 40%;
-    --accent: 43 60% 45%;
-    --accent-foreground: 0 0% 5%;
+    /* Surfaces */
+    --background: 210 40% 99%;          /* near-white with a cool tint */
+    --foreground: 220 45% 11%;          /* deep navy ink */
+    --card: 0 0% 100%;
+    --card-foreground: 220 45% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 45% 11%;
+
+    /* Brand */
+    --primary: 218 92% 56%;             /* electric blue */
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 212 100% 70%;       /* lighter sky for gradients */
+
+    /* Dark sections (navy instead of near-black) */
+    --secondary: 220 50% 10%;
+    --secondary-foreground: 210 40% 98%;
+
+    /* Neutrals */
+    --muted: 215 25% 95%;
+    --muted-foreground: 220 15% 42%;
+    --accent: 218 92% 56%;
+    --accent-foreground: 0 0% 100%;
+
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-    --border: 40 10% 85%;
-    --input: 40 10% 85%;
-    --ring: 43 80% 50%;
-    --radius: 0.75rem;
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
 
-    --gold: 43 80% 50%;
-    --gold-light: 43 70% 65%;
-    --gold-dark: 43 90% 38%;
-    --dark: 0 0% 8%;
-    --dark-soft: 0 0% 15%;
+    --border: 215 25% 90%;
+    --input: 215 25% 90%;
+    --ring: 218 92% 56%;
+    --radius: 1rem;
+
+    /* Sidebar (kept) */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 220 25% 26%;
+    --sidebar-primary: 220 50% 10%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 215 25% 95%;
+    --sidebar-accent-foreground: 220 50% 10%;
+    --sidebar-border: 215 25% 90%;
+    --sidebar-ring: 218 92% 56%;
+
+    /* Aliases — keep old token names so existing classes still work */
+    --gold: 218 92% 56%;
+    --gold-light: 212 100% 70%;
+    --gold-dark: 220 90% 42%;
+    --dark: 220 50% 10%;
+    --dark-soft: 220 40% 16%;
+
+    /* Editorial system tokens */
+    --ink: 220 45% 11%;
+    --ink-muted: 220 20% 35%;
+    --rule: 220 15% 88%;
+    --shadow-soft: 0 30px 60px -30px hsl(220 50% 20% / 0.18);
+    --shadow-pop: 0 20px 50px -20px hsl(218 92% 56% / 0.35);
+    --gradient-primary: linear-gradient(135deg, hsl(218 92% 56%), hsl(212 100% 70%));
+    --gradient-ink: linear-gradient(180deg, hsl(220 50% 10%), hsl(220 50% 6%));
   }
 }
 
@@ -47,34 +76,101 @@
   * {
     @apply border-border;
   }
+  html {
+    @apply scroll-smooth;
+  }
   body {
     @apply bg-background text-foreground font-body antialiased;
+    font-feature-settings: "ss01", "ss02", "cv11";
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading tracking-tight;
+    font-feature-settings: "dlig", "liga";
+    letter-spacing: -0.015em;
+  }
+  ::selection {
+    background: hsl(var(--primary) / 0.22);
+    color: hsl(var(--foreground));
   }
 }
 
 @layer components {
   .section-padding {
-    @apply py-20 px-4 md:px-8 lg:px-16;
+    @apply py-24 md:py-28 px-4 md:px-8 lg:px-16;
   }
+
+  /* Kept name for backwards-compat — now a blue gradient */
   .gold-gradient {
-    background: linear-gradient(135deg, hsl(43 80% 50%), hsl(43 70% 65%));
+    background: var(--gradient-primary);
   }
+  .ink-gradient {
+    background: var(--gradient-ink);
+  }
+
   .dark-section {
-    @apply bg-secondary text-secondary-foreground;
+    background: var(--gradient-ink);
+    @apply text-secondary-foreground;
   }
+
   .gold-text {
     @apply text-primary;
   }
+
+  /* Editorial display treatments */
+  .display-serif {
+    @apply font-heading;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+
+  .eyebrow {
+    @apply uppercase tracking-[0.2em] text-xs font-semibold text-primary;
+  }
+
+  .rule {
+    height: 1px;
+    background: hsl(var(--rule));
+  }
+
   .card-hover {
-    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+    @apply transition-all duration-500;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .card-hover:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-soft);
+    border-color: hsl(var(--primary) / 0.3);
+  }
+
+  .glass {
+    background: hsl(0 0% 100% / 0.7);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    border: 1px solid hsl(var(--border));
+  }
+
+  .glass-dark {
+    background: hsl(220 50% 10% / 0.6);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    border: 1px solid hsl(0 0% 100% / 0.08);
+  }
+
+  .grain::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/></svg>");
   }
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+  .text-balance { text-wrap: balance; }
+  .text-pretty { text-wrap: pretty; }
+  .shadow-soft { box-shadow: var(--shadow-soft); }
+  .shadow-pop { box-shadow: var(--shadow-pop); }
 }
