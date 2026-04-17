@@ -1,30 +1,29 @@
 import { Link } from "react-router-dom";
-import { Car, Monitor, Camera, ShoppingBag, ArrowRight, Star, ChevronDown, Zap, Shield, Heart } from "lucide-react";
+import { Car, Monitor, Camera, ShoppingBag, ArrowRight, Star, ChevronDown, Heart, Shield, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
-import heroBg from "@/assets/hero-bg.jpg";
 import benjiMascot from "@/assets/benji-mascot.png";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
 const services = [
-  { icon: Car, title: "Auto Sales", desc: "Quality cars for every budget — from affordable rides to luxury vehicles.", link: "/auto-sales", cta: "View All Cars" },
-  { icon: Monitor, title: "Digital Services", desc: "Web design, branding, UI/UX, and full business websites built to impress.", link: "/digital-services", cta: "Request a Website" },
-  { icon: Camera, title: "Media & Marketing", desc: "Video editing, photography, event coverage, and social media content.", link: "/media", cta: "Book Media Services" },
-  { icon: ShoppingBag, title: "Benji Store", desc: "Buy and sell electronics, fashion, home items, accessories, and more.", link: "/store", cta: "Visit Store" },
+  { num: "01", icon: Car, title: "Auto Sales", desc: "Quality cars for every budget — from affordable rides to luxury vehicles.", link: "/auto-sales", cta: "View all cars" },
+  { num: "02", icon: Monitor, title: "Digital Services", desc: "Web design, branding, UI/UX, and full business websites built to impress.", link: "/digital-services", cta: "Request a website" },
+  { num: "03", icon: Camera, title: "Media & Marketing", desc: "Video editing, photography, event coverage, and social media content.", link: "/media", cta: "Book media services" },
+  { num: "04", icon: ShoppingBag, title: "Benji Store", desc: "Buy and sell electronics, fashion, home items, accessories, and more.", link: "/store", cta: "Visit the store" },
 ];
 
 const stats = [
-  { n: "500+", l: "Happy Clients", icon: Heart },
-  { n: "100+", l: "Cars Sold", icon: Car },
-  { n: "50+", l: "Websites Built", icon: Monitor },
+  { n: "500+", l: "Happy clients", icon: Heart },
+  { n: "100+", l: "Cars sold", icon: Car },
+  { n: "50+", l: "Sites built", icon: Monitor },
   { n: "24/7", l: "Support", icon: Shield },
 ];
 
 const testimonials = [
-  { name: "Adebayo O.", text: "Bought my car through Benji — smooth process, great price!", role: "Business Owner" },
+  { name: "Adebayo O.", text: "Bought my car through Benji — smooth process, great price.", role: "Business Owner" },
   { name: "Funke A.", text: "They designed our business website and it looks incredible.", role: "Entrepreneur" },
-  { name: "Chidi N.", text: "Amazing media coverage for our wedding. Highly recommend!", role: "Happy Customer" },
+  { name: "Chidi N.", text: "Amazing media coverage for our wedding. Highly recommend.", role: "Happy Customer" },
 ];
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -32,172 +31,178 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
   visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, delay: i * 0.1, ease: EASE as unknown as [number, number, number, number] },
-  }),
-};
-
-const scaleIn = {
-  hidden: { opacity: 0, scale: 0.9 },
-  visible: (i: number) => ({
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.5, delay: i * 0.12, ease: EASE as unknown as [number, number, number, number] },
+    opacity: 1, y: 0,
+    transition: { duration: 0.7, delay: i * 0.08, ease: EASE as unknown as [number, number, number, number] },
   }),
 };
 
 const Index = () => {
   const heroRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-  });
-  const heroY = useTransform(scrollYProgress, [0, 1], [0, 150]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, 120]);
+  const markY = useTransform(scrollYProgress, [0, 1], [0, -80]);
 
   return (
     <Layout>
-      {/* Hero */}
-      <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden">
-        <motion.div className="absolute inset-0" style={{ y: heroY }}>
-          <img src={heroBg} alt="" className="w-full h-full object-cover scale-110" />
-          <div className="absolute inset-0 bg-gradient-to-b from-secondary/70 via-secondary/50 to-secondary/90" />
-        </motion.div>
-
+      {/* ─────────── Hero — editorial split ─────────── */}
+      <section ref={heroRef} className="relative min-h-[100svh] pt-32 pb-20 overflow-hidden bg-background">
+        {/* Background flourish */}
         <motion.div
-          className="relative container mx-auto px-4 flex flex-col md:flex-row items-center gap-10"
-          style={{ opacity: heroOpacity }}
-        >
-          <div className="flex-1">
+          style={{ y: markY }}
+          aria-hidden
+          className="absolute -top-40 -right-40 w-[680px] h-[680px] rounded-full bg-primary/10 blur-3xl"
+        />
+        <motion.div
+          style={{ y: heroY }}
+          aria-hidden
+          className="absolute bottom-0 -left-40 w-[520px] h-[520px] rounded-full bg-primary-glow/15 blur-3xl"
+          // primary-glow not in tailwind; fallback handled via class below
+        />
+
+        <div className="container mx-auto px-4 md:px-8 lg:px-16 relative">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: EASE as unknown as [number, number, number, number] }}
+            className="eyebrow mb-8"
+          >
+            ◍ Your one-stop hub — Lagos, Nigeria
+          </motion.p>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">
             <motion.div
-              initial={{ opacity: 0, x: -40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              initial="hidden"
+              animate="visible"
+              className="lg:col-span-8"
             >
-              <span className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-1.5 text-primary text-sm font-semibold mb-6">
-                <Zap size={14} /> Your One-Stop Hub
-              </span>
+              <motion.h1
+                custom={0}
+                variants={fadeUp}
+                className="font-heading text-[14vw] md:text-[10vw] lg:text-[9vw] leading-[0.88] text-foreground text-balance"
+              >
+                Benji sells
+                <br />
+                <span className="italic text-primary">everything</span>
+                <span className="text-primary">.</span>
+              </motion.h1>
+
+              <motion.p
+                custom={1}
+                variants={fadeUp}
+                className="mt-10 max-w-xl text-lg md:text-xl text-muted-foreground leading-relaxed"
+              >
+                A trusted hub for cars, digital services, media, and everyday products —
+                crafted with care, delivered with conviction.
+              </motion.p>
+
+              <motion.div custom={2} variants={fadeUp} className="mt-10 flex flex-wrap items-center gap-4">
+                <Button asChild size="lg" className="gold-gradient text-primary-foreground font-medium px-8 h-14 rounded-full shadow-pop hover:opacity-90">
+                  <Link to="/auto-sales">Explore services <ArrowRight size={18} className="ml-2" /></Link>
+                </Button>
+                <Button asChild variant="ghost" size="lg" className="text-foreground hover:bg-muted h-14 rounded-full px-6">
+                  <Link to="/store">
+                    <span className="font-heading italic text-lg mr-2">Shop</span>
+                    <ArrowUpRight size={18} />
+                  </Link>
+                </Button>
+              </motion.div>
             </motion.div>
 
-            <motion.h1
-              className="font-heading text-7xl md:text-9xl text-primary leading-[0.9] mb-6"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-            >
-              Benji Sells
-              <br />
-              <span className="text-secondary-foreground">Everything</span>
-            </motion.h1>
-
-            <motion.p
-              className="text-secondary-foreground/70 text-lg md:text-xl max-w-lg mb-10 leading-relaxed"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            >
-              Your trusted hub for cars, digital services, media, and everyday products — all under one roof.
-            </motion.p>
-
             <motion.div
-              className="flex flex-wrap gap-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              initial={{ opacity: 0, scale: 0.9, rotate: -4 }}
+              animate={{ opacity: 1, scale: 1, rotate: 0 }}
+              transition={{ duration: 1, delay: 0.3, ease: EASE as unknown as [number, number, number, number] }}
+              className="lg:col-span-4 relative flex justify-center lg:justify-end"
             >
-              <Button asChild size="lg" className="gold-gradient text-primary-foreground font-semibold px-10 py-7 text-base hover:opacity-90 shadow-lg shadow-primary/20">
-                <Link to="/auto-sales">Explore Services <ArrowRight size={18} className="ml-2" /></Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="border-primary/40 text-primary font-semibold px-10 py-7 text-base hover:bg-primary/10 backdrop-blur-sm">
-                <Link to="/store">Shop Now</Link>
-              </Button>
+              <div className="relative">
+                <div className="absolute -inset-10 rounded-full bg-primary/15 blur-3xl" />
+                <div className="relative w-64 md:w-80 aspect-square rounded-[2.5rem] overflow-hidden ink-gradient grain p-8 flex items-end justify-center shadow-pop">
+                  <img src={benjiMascot} alt="Benji mascot" className="w-full drop-shadow-2xl" />
+                </div>
+                <span className="absolute -top-3 -left-3 bg-card border border-border rounded-full px-4 py-1.5 text-xs font-medium shadow-soft">
+                  ★ 4.9 · 500+ reviews
+                </span>
+              </div>
             </motion.div>
           </div>
+        </div>
 
-          <motion.div
-            className="flex-shrink-0 relative"
-            initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
-            animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            transition={{ duration: 1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <div className="absolute -inset-8 rounded-full bg-primary/10 blur-3xl" />
-            <img src={benjiMascot} alt="Benji mascot" className="relative w-64 md:w-80 drop-shadow-2xl" />
-          </motion.div>
-        </motion.div>
-
-        {/* Scroll indicator */}
         <motion.div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-secondary-foreground/40"
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-muted-foreground"
+          animate={{ y: [0, 6, 0] }}
+          transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
         >
-          <span className="text-xs font-medium tracking-widest uppercase">Scroll</span>
-          <ChevronDown size={20} />
+          <span className="text-[10px] uppercase tracking-[0.3em]">Scroll</span>
+          <ChevronDown size={16} />
         </motion.div>
       </section>
 
-      {/* Stats Bar */}
-      <section className="relative -mt-12 z-10 px-4 md:px-8 lg:px-16">
+      {/* ─────────── Stats ─────────── */}
+      <section className="px-4 md:px-8 lg:px-16 -mt-4">
         <motion.div
-          className="container mx-auto bg-card rounded-2xl border border-border shadow-2xl shadow-primary/5 p-8"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
+          className="container mx-auto bg-card border border-border rounded-3xl shadow-soft p-8 md:p-10"
         >
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-10 divide-y md:divide-y-0 md:divide-x divide-border">
             {stats.map((s, i) => (
-              <motion.div key={s.l} custom={i} variants={fadeUp} className="text-center">
-                <div className="w-12 h-12 rounded-xl gold-gradient flex items-center justify-center mx-auto mb-3">
-                  <s.icon size={22} className="text-primary-foreground" />
-                </div>
-                <div className="font-heading text-4xl text-primary">{s.n}</div>
-                <div className="text-sm text-muted-foreground mt-1">{s.l}</div>
+              <motion.div key={s.l} custom={i} variants={fadeUp} className="md:px-6 first:pt-0 pt-6 md:pt-0">
+                <s.icon size={18} className="text-primary mb-3" />
+                <div className="font-heading italic text-5xl md:text-6xl text-foreground leading-none">{s.n}</div>
+                <div className="text-sm text-muted-foreground mt-2">{s.l}</div>
               </motion.div>
             ))}
           </div>
         </motion.div>
       </section>
 
-      {/* Services Grid */}
+      {/* ─────────── Services — editorial cards ─────────── */}
       <section className="section-padding bg-background">
         <div className="container mx-auto">
           <motion.div
-            className="text-center mb-14"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
+            className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16"
           >
-            <motion.span variants={fadeUp} custom={0} className="text-primary font-semibold text-sm tracking-widest uppercase mb-3 block">
-              Our Services
-            </motion.span>
-            <motion.h2 variants={fadeUp} custom={1} className="font-heading text-5xl md:text-7xl mb-4">
-              What We <span className="text-primary">Offer</span>
-            </motion.h2>
-            <motion.p variants={fadeUp} custom={2} className="text-muted-foreground max-w-2xl mx-auto text-lg">
-              From wheels to websites, media to merchandise — Benji's got you covered.
+            <div className="max-w-2xl">
+              <motion.p variants={fadeUp} custom={0} className="eyebrow mb-4">What we do</motion.p>
+              <motion.h2 variants={fadeUp} custom={1} className="font-heading text-5xl md:text-7xl leading-[0.95] text-balance">
+                Four practices.
+                <br />
+                <span className="italic text-primary">One trusted name.</span>
+              </motion.h2>
+            </div>
+            <motion.p variants={fadeUp} custom={2} className="text-muted-foreground max-w-sm">
+              From wheels to websites, media to merchandise — Benji's got you covered with the same level of care across every line.
             </motion.p>
           </motion.div>
 
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-60px" }}
+            className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border rounded-3xl overflow-hidden border border-border"
           >
             {services.map((s, i) => (
-              <motion.div key={s.title} custom={i} variants={scaleIn}>
+              <motion.div key={s.title} custom={i} variants={fadeUp}>
                 <Link
                   to={s.link}
-                  className="group block bg-card rounded-xl p-8 border border-border transition-all duration-300 hover:shadow-xl hover:-translate-y-2 hover:border-primary/30 h-full"
+                  className="group block bg-card p-8 md:p-10 h-full transition-colors hover:bg-muted/40"
                 >
-                  <div className="w-14 h-14 rounded-xl gold-gradient flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                    <s.icon size={28} className="text-primary-foreground" />
+                  <div className="flex items-start justify-between mb-10">
+                    <span className="text-xs font-mono text-muted-foreground tracking-widest">— {s.num}</span>
+                    <s.icon size={22} className="text-primary opacity-70 group-hover:opacity-100 transition-opacity" />
                   </div>
-                  <h3 className="font-heading text-2xl mb-2">{s.title}</h3>
-                  <p className="text-muted-foreground text-sm mb-6 leading-relaxed">{s.desc}</p>
-                  <span className="text-primary text-sm font-semibold flex items-center gap-1 group-hover:gap-3 transition-all duration-300">
-                    {s.cta} <ArrowRight size={14} />
+                  <h3 className="font-heading text-4xl md:text-5xl leading-[1.05] mb-4 text-balance">
+                    {s.title.split(" ")[0]}
+                    {s.title.split(" ")[1] && <span className="italic text-primary"> {s.title.split(" ").slice(1).join(" ")}</span>}
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed mb-8 max-w-md">{s.desc}</p>
+                  <span className="inline-flex items-center gap-2 text-sm font-medium text-foreground group-hover:text-primary transition-colors">
+                    {s.cta}
+                    <ArrowUpRight size={16} className="transition-transform group-hover:rotate-45" />
                   </span>
                 </Link>
               </motion.div>
@@ -206,120 +211,119 @@ const Index = () => {
         </div>
       </section>
 
-      {/* About */}
-      <section className="section-padding dark-section overflow-hidden">
-        <div className="container mx-auto">
+      {/* ─────────── About ─────────── */}
+      <section className="section-padding dark-section relative overflow-hidden grain">
+        <div className="container mx-auto relative">
           <motion.div
-            className="flex flex-col md:flex-row items-center gap-16"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
+            className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
           >
-            <motion.div className="flex-1" variants={fadeUp} custom={0}>
-              <span className="text-primary font-semibold text-sm tracking-widest uppercase mb-3 block">About Us</span>
-              <h2 className="font-heading text-5xl md:text-7xl mb-6">
-                Why Choose <span className="text-primary">Benji</span>?
+            <motion.div variants={fadeUp} custom={0} className="lg:col-span-7">
+              <p className="eyebrow mb-5">About Benji</p>
+              <h2 className="font-heading text-5xl md:text-7xl text-secondary-foreground leading-[0.95] mb-8 text-balance">
+                Built on trust,
+                <br />
+                <span className="italic text-primary">delivered with hustle.</span>
               </h2>
-              <p className="text-secondary-foreground/70 leading-relaxed mb-4 text-lg">
-                Benji Sells Everything started with a simple mission: make buying, selling, and digital services simple and accessible for everyone.
+              <p className="text-secondary-foreground/70 leading-relaxed mb-5 text-lg max-w-xl">
+                Benji Sells Everything started with a simple mission: make buying, selling, and digital services simple and accessible for everyone in Lagos and beyond.
               </p>
-              <p className="text-secondary-foreground/70 leading-relaxed mb-8">
-                Whether you need a reliable car, a stunning website, professional media content, or just want to shop for great deals — Benji's here for you. Our friendly bear mascot represents the warmth, trust, and hustle we bring to every transaction.
+              <p className="text-secondary-foreground/60 leading-relaxed mb-10 max-w-xl">
+                Whether you need a reliable car, a stunning website, professional media content, or just want to shop for great deals — our friendly bear represents the warmth, trust, and hustle we bring to every transaction.
               </p>
-              <Button asChild variant="outline" className="border-primary/40 text-primary hover:bg-primary/10 px-8 py-6">
-                <Link to="/contact">Get in Touch <ArrowRight size={16} className="ml-2" /></Link>
+              <Button asChild variant="outline" className="border-secondary-foreground/30 text-secondary-foreground hover:bg-secondary-foreground/10 h-12 rounded-full px-7">
+                <Link to="/contact">Get in touch <ArrowUpRight size={16} className="ml-2" /></Link>
               </Button>
             </motion.div>
 
-            <motion.div
-              className="flex-shrink-0 relative"
-              variants={scaleIn}
-              custom={1}
-            >
-              <div className="absolute -inset-6 rounded-full bg-primary/5 blur-2xl" />
-              <div className="relative w-72 h-72 md:w-80 md:h-80 rounded-3xl gold-gradient p-1 rotate-3 hover:rotate-0 transition-transform duration-500">
-                <div className="w-full h-full rounded-3xl bg-secondary flex items-center justify-center overflow-hidden">
-                  <img src={benjiMascot} alt="Benji" className="w-56" loading="lazy" />
-                </div>
+            <motion.div variants={fadeUp} custom={1} className="lg:col-span-5 relative">
+              <div className="absolute -inset-8 rounded-full bg-primary/10 blur-3xl" />
+              <div className="relative aspect-[4/5] rounded-3xl overflow-hidden glass-dark p-10 flex items-end justify-center">
+                <img src={benjiMascot} alt="Benji" className="w-full drop-shadow-2xl" loading="lazy" />
+                <span className="absolute top-6 left-6 font-heading italic text-secondary-foreground text-2xl">
+                  Est. <span className="text-primary">2024</span>
+                </span>
               </div>
             </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="section-padding bg-background overflow-hidden">
+      {/* ─────────── Testimonials ─────────── */}
+      <section className="section-padding bg-background">
         <div className="container mx-auto">
           <motion.div
-            className="text-center mb-14"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
+            className="text-center mb-16"
           >
-            <motion.span variants={fadeUp} custom={0} className="text-primary font-semibold text-sm tracking-widest uppercase mb-3 block">
-              Testimonials
-            </motion.span>
-            <motion.h2 variants={fadeUp} custom={1} className="font-heading text-5xl md:text-7xl mb-4">
-              What People <span className="text-primary">Say</span>
+            <motion.p variants={fadeUp} custom={0} className="eyebrow mb-4">Kind words</motion.p>
+            <motion.h2 variants={fadeUp} custom={1} className="font-heading text-5xl md:text-7xl text-balance">
+              Loved by <span className="italic text-primary">hundreds</span>.
             </motion.h2>
           </motion.div>
 
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-3 gap-6"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-60px" }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-6"
           >
             {testimonials.map((t, i) => (
-              <motion.div
+              <motion.figure
                 key={t.name}
                 custom={i}
-                variants={scaleIn}
-                className="bg-card rounded-xl p-8 border border-border hover:border-primary/20 hover:shadow-lg transition-all duration-300"
+                variants={fadeUp}
+                className="bg-card border border-border rounded-3xl p-8 card-hover"
               >
-                <div className="flex gap-1 mb-5">
+                <div className="flex gap-0.5 mb-6">
                   {[...Array(5)].map((_, j) => (
-                    <Star key={j} size={16} className="fill-primary text-primary" />
+                    <Star key={j} size={14} className="fill-primary text-primary" />
                   ))}
                 </div>
-                <p className="text-foreground/80 mb-6 leading-relaxed text-lg italic">"{t.text}"</p>
-                <div className="flex items-center gap-3">
+                <blockquote className="font-heading italic text-2xl leading-snug text-foreground mb-8 text-balance">
+                  "{t.text}"
+                </blockquote>
+                <figcaption className="flex items-center gap-3 pt-6 border-t border-border">
                   <div className="w-10 h-10 rounded-full gold-gradient flex items-center justify-center text-primary-foreground font-heading text-lg">
                     {t.name[0]}
                   </div>
                   <div>
-                    <p className="font-semibold text-sm">{t.name}</p>
+                    <p className="font-medium text-sm">{t.name}</p>
                     <p className="text-xs text-muted-foreground">{t.role}</p>
                   </div>
-                </div>
-              </motion.div>
+                </figcaption>
+              </motion.figure>
             ))}
           </motion.div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="section-padding relative overflow-hidden">
-        <div className="absolute inset-0 gold-gradient" />
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMwMDAwMDAiIGZpbGwtb3BhY2l0eT0iMC4wNCI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMiIvPjwvZz48L2c+PC9zdmc+')] opacity-50" />
+      {/* ─────────── CTA ─────────── */}
+      <section className="px-4 md:px-8 lg:px-16 pb-24">
         <motion.div
-          className="container mx-auto text-center relative"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
+          className="container mx-auto relative overflow-hidden rounded-[2rem] md:rounded-[2.5rem] gold-gradient p-12 md:p-20 text-center grain"
         >
-          <motion.h2 variants={fadeUp} custom={0} className="font-heading text-5xl md:text-7xl text-primary-foreground mb-4">
-            Ready to Get Started?
-          </motion.h2>
-          <motion.p variants={fadeUp} custom={1} className="text-primary-foreground/80 mb-10 max-w-xl mx-auto text-lg">
-            Whether you're buying a car, need a website, or want to sell your products — Benji's got your back.
+          <motion.p variants={fadeUp} custom={0} className="text-primary-foreground/80 text-xs uppercase tracking-[0.3em] font-semibold mb-6">
+            Ready when you are
           </motion.p>
-          <motion.div variants={fadeUp} custom={2} className="flex flex-wrap gap-4 justify-center">
-            <Button asChild size="lg" className="bg-secondary text-secondary-foreground font-semibold px-10 py-7 text-base hover:bg-dark-soft shadow-xl">
-              <Link to="/contact">Let's Talk <ArrowRight size={18} className="ml-2" /></Link>
+          <motion.h2 variants={fadeUp} custom={1} className="font-heading text-5xl md:text-8xl text-primary-foreground leading-[0.95] mb-8 text-balance">
+            Let's make
+            <br />
+            <span className="italic">it happen.</span>
+          </motion.h2>
+          <motion.div variants={fadeUp} custom={2} className="flex flex-wrap gap-3 justify-center">
+            <Button asChild size="lg" className="bg-secondary text-secondary-foreground hover:bg-secondary/90 rounded-full h-14 px-8 font-medium">
+              <Link to="/contact">Start a conversation <ArrowRight size={18} className="ml-2" /></Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground font-semibold px-10 py-7 text-base hover:bg-primary-foreground/10">
-              <Link to="/store">Browse Store</Link>
+            <Button asChild size="lg" variant="ghost" className="text-primary-foreground hover:bg-primary-foreground/10 rounded-full h-14 px-7">
+              <Link to="/store">Browse the store</Link>
             </Button>
           </motion.div>
         </motion.div>
