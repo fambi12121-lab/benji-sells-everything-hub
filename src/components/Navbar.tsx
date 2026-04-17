@@ -1,13 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ShoppingCart } from "lucide-react";
+import { Menu, X, ShoppingBag } from "lucide-react";
 import { useShopifyCartStore } from "@/stores/shopifyCartStore";
-import benjiLogo from "@/assets/benji-mascot.png";
 
 const navLinks = [
   { label: "Home", to: "/" },
-  { label: "Auto Sales", to: "/auto-sales" },
-  { label: "Digital Services", to: "/digital-services" },
+  { label: "Auto", to: "/auto-sales" },
+  { label: "Digital", to: "/digital-services" },
   { label: "Media", to: "/media" },
   { label: "Store", to: "/store" },
   { label: "Contact", to: "/contact" },
@@ -15,72 +14,111 @@ const navLinks = [
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const totalItems = useShopifyCartStore((s) => s.totalItems)();
   const openCart = (v: boolean) => useShopifyCartStore.getState().setIsOpen(v);
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-secondary/95 backdrop-blur-md border-b border-gold/20">
-      <div className="container mx-auto flex items-center justify-between h-16 px-4">
-        <Link to="/" className="flex items-center gap-2">
-          <img src={benjiLogo} alt="Benji" className="h-10 w-10 rounded-full object-cover" />
-          <span className="font-heading text-2xl text-primary">BENJI SELLS EVERYTHING</span>
-        </Link>
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled ? "py-2" : "py-4"
+      }`}
+    >
+      <div className="container mx-auto px-4">
+        <div
+          className={`flex items-center justify-between rounded-full transition-all duration-500 ${
+            scrolled
+              ? "glass shadow-soft px-5 h-14"
+              : "bg-transparent px-2 h-16"
+          }`}
+        >
+          {/* Wordmark */}
+          <Link to="/" className="flex items-baseline gap-2 pl-3">
+            <span className="font-heading italic text-2xl text-foreground leading-none">
+              Benji
+            </span>
+            <span className="hidden sm:inline text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+              Sells Everything
+            </span>
+          </Link>
 
-        {/* Desktop */}
-        <div className="hidden md:flex items-center gap-6">
-          {navLinks.map((l) => (
-            <Link
-              key={l.to}
-              to={l.to}
-              className={`font-body text-sm font-medium transition-colors hover:text-primary ${
-                location.pathname === l.to ? "text-primary" : "text-secondary-foreground/80"
-              }`}
+          {/* Desktop links */}
+          <div className="hidden md:flex items-center gap-1">
+            {navLinks.map((l) => {
+              const active = location.pathname === l.to;
+              return (
+                <Link
+                  key={l.to}
+                  to={l.to}
+                  className={`relative px-4 py-2 text-sm font-medium transition-colors rounded-full ${
+                    active
+                      ? "text-primary"
+                      : "text-foreground/70 hover:text-foreground"
+                  }`}
+                >
+                  {l.label}
+                  {active && (
+                    <span className="absolute left-1/2 -translate-x-1/2 bottom-1 w-1 h-1 rounded-full bg-primary" />
+                  )}
+                </Link>
+              );
+            })}
+          </div>
+
+          {/* Right cluster */}
+          <div className="flex items-center gap-2 pr-1">
+            <button
+              onClick={() => openCart(true)}
+              aria-label="Open cart"
+              className="relative h-10 w-10 rounded-full flex items-center justify-center text-foreground/80 hover:text-primary hover:bg-muted transition-colors"
             >
-              {l.label}
-            </Link>
-          ))}
-          <button onClick={() => openCart(true)} className="relative text-secondary-foreground/80 hover:text-primary transition-colors">
-            <ShoppingCart size={22} />
-            {totalItems > 0 && (
-              <span className="absolute -top-2 -right-2 w-5 h-5 rounded-full gold-gradient text-primary-foreground text-xs font-bold flex items-center justify-center">
-                {totalItems}
-              </span>
-            )}
-          </button>
-        </div>
+              <ShoppingBag size={18} />
+              {totalItems > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 rounded-full bg-primary text-primary-foreground text-[10px] font-bold flex items-center justify-center">
+                  {totalItems}
+                </span>
+              )}
+            </button>
 
-        {/* Mobile */}
-        <div className="flex items-center gap-3 md:hidden">
-          <button onClick={() => openCart(true)} className="relative text-secondary-foreground/80 hover:text-primary transition-colors">
-            <ShoppingCart size={22} />
-            {totalItems > 0 && (
-              <span className="absolute -top-2 -right-2 w-5 h-5 rounded-full gold-gradient text-primary-foreground text-xs font-bold flex items-center justify-center">
-                {totalItems}
-              </span>
-            )}
-          </button>
-          <button onClick={() => setOpen(!open)} className="text-secondary-foreground">
-            {open ? <X size={24} /> : <Menu size={24} />}
-          </button>
+            <button
+              onClick={() => setOpen(!open)}
+              aria-label="Toggle menu"
+              className="md:hidden h-10 w-10 rounded-full flex items-center justify-center text-foreground hover:bg-muted transition-colors"
+            >
+              {open ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile sheet */}
       {open && (
-        <div className="md:hidden bg-secondary border-t border-gold/20 animate-fade-in">
-          {navLinks.map((l) => (
-            <Link
-              key={l.to}
-              to={l.to}
-              onClick={() => setOpen(false)}
-              className={`block px-6 py-3 text-sm font-medium transition-colors hover:bg-dark-soft ${
-                location.pathname === l.to ? "text-primary" : "text-secondary-foreground/80"
-              }`}
-            >
-              {l.label}
-            </Link>
-          ))}
+        <div className="md:hidden mx-4 mt-2 rounded-3xl glass shadow-soft overflow-hidden animate-fade-in">
+          {navLinks.map((l) => {
+            const active = location.pathname === l.to;
+            return (
+              <Link
+                key={l.to}
+                to={l.to}
+                onClick={() => setOpen(false)}
+                className={`block px-6 py-4 text-base font-medium border-b border-border last:border-0 transition-colors ${
+                  active
+                    ? "text-primary bg-primary/5"
+                    : "text-foreground/80 hover:bg-muted"
+                }`}
+              >
+                {l.label}
+              </Link>
+            );
+          })}
         </div>
       )}
     </nav>
