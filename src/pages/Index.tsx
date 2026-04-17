@@ -53,10 +53,9 @@ const Index = () => {
           className="absolute -top-40 -right-40 w-[680px] h-[680px] rounded-full bg-primary/10 blur-3xl"
         />
         <motion.div
-          style={{ y: heroY }}
+          style={{ y: heroY, background: "hsl(var(--primary-glow) / 0.18)" }}
           aria-hidden
-          className="absolute bottom-0 -left-40 w-[520px] h-[520px] rounded-full bg-primary-glow/15 blur-3xl"
-          // primary-glow not in tailwind; fallback handled via class below
+          className="absolute bottom-0 -left-40 w-[520px] h-[520px] rounded-full blur-3xl"
         />
 
         <div className="container mx-auto px-4 md:px-8 lg:px-16 relative">
