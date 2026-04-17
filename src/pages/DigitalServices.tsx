@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
-import { Globe, Palette, Layout as LayoutIcon, Briefcase, ArrowRight } from "lucide-react";
+import { Globe, Palette, Layout as LayoutIcon, Briefcase, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
+import { motion } from "framer-motion";
 
 const services = [
-  { icon: Globe, title: "Web Design", desc: "Beautiful, responsive websites that convert visitors into customers." },
-  { icon: Palette, title: "Branding", desc: "Logo design, brand identity, and visual guidelines for your business." },
-  { icon: LayoutIcon, title: "UI/UX Design", desc: "Intuitive interfaces and seamless user experiences." },
-  { icon: Briefcase, title: "Business Websites", desc: "Full-featured websites with CMS, e-commerce, and analytics." },
+  { num: "01", icon: Globe, title: "Web Design", desc: "Beautiful, responsive websites that convert visitors into customers." },
+  { num: "02", icon: Palette, title: "Branding", desc: "Logo design, brand identity, and visual guidelines for your business." },
+  { num: "03", icon: LayoutIcon, title: "UI/UX Design", desc: "Intuitive interfaces and seamless user experiences." },
+  { num: "04", icon: Briefcase, title: "Business Sites", desc: "Full-featured websites with CMS, e-commerce, and analytics." },
 ];
 
 const portfolio = [
@@ -19,49 +20,119 @@ const portfolio = [
   { title: "Logistics Dashboard", category: "UI/UX" },
 ];
 
+const EASE = [0.22, 1, 0.36, 1] as const;
+const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: (i: number) => ({
+    opacity: 1, y: 0,
+    transition: { duration: 0.7, delay: i * 0.08, ease: EASE as unknown as [number, number, number, number] },
+  }),
+};
+
 const DigitalServices = () => (
   <Layout>
-    <section className="dark-section section-padding text-center">
-      <h1 className="font-heading text-6xl md:text-7xl mb-4">Digital <span className="text-primary">Services</span></h1>
-      <p className="text-secondary-foreground/70 max-w-xl mx-auto">We craft stunning digital experiences that help your business stand out.</p>
+    {/* Hero */}
+    <section className="relative pt-36 pb-20 px-4 md:px-8 lg:px-16 overflow-hidden bg-background">
+      <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-primary/10 blur-3xl" aria-hidden />
+      <div className="container mx-auto relative">
+        <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="eyebrow mb-6">
+          ◐ Digital practice
+        </motion.p>
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.1, ease: EASE as unknown as [number, number, number, number] }}
+          className="font-heading text-6xl md:text-9xl leading-[0.92] text-balance max-w-5xl"
+        >
+          Stunning <span className="italic text-primary">digital</span>
+          <br />
+          experiences.
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.25, ease: EASE as unknown as [number, number, number, number] }}
+          className="mt-8 max-w-xl text-lg text-muted-foreground leading-relaxed"
+        >
+          We craft websites, brands, and interfaces that help businesses stand out and convert. Considered, fast, and beautifully made.
+        </motion.p>
+      </div>
     </section>
 
-    <section className="section-padding bg-background">
+    {/* Services grid */}
+    <section className="section-padding bg-background pt-12">
       <div className="container mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border rounded-3xl overflow-hidden border border-border"
+        >
           {services.map((s, i) => (
-            <div key={s.title} className="bg-card rounded-lg p-8 border border-border card-hover text-center">
-              <div className="w-16 h-16 rounded-full gold-gradient flex items-center justify-center mx-auto mb-6">
-                <s.icon size={28} className="text-primary-foreground" />
+            <motion.div key={s.title} custom={i} variants={fadeUp} className="bg-card p-8 md:p-10">
+              <div className="flex items-start justify-between mb-10">
+                <span className="text-xs font-mono text-muted-foreground tracking-widest">— {s.num}</span>
+                <s.icon size={22} className="text-primary opacity-70" />
               </div>
-              <h3 className="font-heading text-2xl mb-2">{s.title}</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">{s.desc}</p>
-            </div>
+              <h3 className="font-heading text-4xl md:text-5xl leading-[1.05] mb-4">
+                {s.title.split(" ")[0]}
+                {s.title.split(" ").slice(1).length > 0 && (
+                  <span className="italic text-primary"> {s.title.split(" ").slice(1).join(" ")}</span>
+                )}
+              </h3>
+              <p className="text-muted-foreground leading-relaxed max-w-md">{s.desc}</p>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
 
     {/* Portfolio */}
-    <section className="section-padding dark-section">
-      <div className="container mx-auto">
-        <h2 className="font-heading text-5xl text-center mb-12">Our <span className="text-primary">Portfolio</span></h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {portfolio.map((p) => (
-            <div key={p.title} className="group bg-dark-soft rounded-lg overflow-hidden card-hover border border-gold/10">
-              <div className="h-48 bg-dark flex items-center justify-center">
-                <LayoutIcon size={40} className="text-primary/30 group-hover:text-primary transition-colors" />
+    <section className="section-padding dark-section grain">
+      <div className="container mx-auto relative">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14"
+        >
+          <div>
+            <motion.p variants={fadeUp} custom={0} className="eyebrow mb-4">Selected work</motion.p>
+            <motion.h2 variants={fadeUp} custom={1} className="font-heading text-5xl md:text-7xl text-secondary-foreground leading-[0.95] text-balance">
+              Our recent
+              <br />
+              <span className="italic text-primary">portfolio</span>.
+            </motion.h2>
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+        >
+          {portfolio.map((p, i) => (
+            <motion.div key={p.title} custom={i} variants={fadeUp}>
+              <div className="group relative aspect-[4/3] rounded-2xl overflow-hidden glass-dark cursor-pointer">
+                <div className="absolute inset-0 flex items-center justify-center opacity-30 group-hover:opacity-60 transition-opacity">
+                  <LayoutIcon size={56} className="text-primary" />
+                </div>
+                <div className="absolute inset-x-0 bottom-0 p-6 flex items-end justify-between">
+                  <div>
+                    <p className="text-[10px] uppercase tracking-[0.25em] text-primary mb-1.5">{p.category}</p>
+                    <h3 className="font-heading text-2xl text-secondary-foreground">{p.title}</h3>
+                  </div>
+                  <ArrowUpRight size={18} className="text-secondary-foreground/70 group-hover:rotate-45 transition-transform" />
+                </div>
               </div>
-              <div className="p-5">
-                <span className="text-xs text-primary font-semibold uppercase">{p.category}</span>
-                <h3 className="font-semibold text-secondary-foreground mt-1">{p.title}</h3>
-              </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
-        <div className="text-center mt-12">
-          <Button asChild className="gold-gradient text-primary-foreground font-semibold px-10 py-6 text-base hover:opacity-90">
-            <Link to="/contact">Request a Website <ArrowRight size={16} className="ml-2" /></Link>
+        </motion.div>
+
+        <div className="text-center mt-16">
+          <Button asChild className="gold-gradient text-primary-foreground font-medium px-8 h-14 rounded-full shadow-pop hover:opacity-90">
+            <Link to="/contact">Request a website <ArrowUpRight size={18} className="ml-2" /></Link>
           </Button>
         </div>
       </div>
