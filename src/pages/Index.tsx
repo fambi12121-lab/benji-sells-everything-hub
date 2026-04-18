@@ -88,7 +88,7 @@ const Index = () => {
               <motion.p
                 custom={1}
                 variants={fadeUp}
-                className="mt-10 max-w-xl text-lg md:text-xl text-muted-foreground leading-relaxed"
+                className="drop-cap mt-10 max-w-xl text-lg md:text-xl text-muted-foreground leading-relaxed"
               >
                 A trusted hub for cars, digital services, media, and everyday products —
                 crafted with care, delivered with conviction.

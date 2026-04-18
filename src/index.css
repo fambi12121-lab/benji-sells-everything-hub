@@ -173,4 +173,17 @@
   .text-pretty { text-wrap: pretty; }
   .shadow-soft { box-shadow: var(--shadow-soft); }
   .shadow-pop { box-shadow: var(--shadow-pop); }
+
+  /* Editorial drop cap for lead paragraphs */
+  .drop-cap::first-letter {
+    font-family: 'Playfair Display', ui-serif, Georgia, serif;
+    font-style: italic;
+    font-weight: 600;
+    color: hsl(var(--primary));
+    float: left;
+    font-size: 4.5rem;
+    line-height: 0.85;
+    padding: 0.35rem 0.6rem 0 0;
+    margin-top: 0.15rem;
+  }
 }
