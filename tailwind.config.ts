@@ -12,9 +12,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        heading: ['"Instrument Serif"', 'ui-serif', 'Georgia', 'serif'],
-        body: ['"Work Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        display: ['"Instrument Serif"', 'ui-serif', 'Georgia', 'serif'],
+        heading: ['"Playfair Display"', 'ui-serif', 'Georgia', 'serif'],
+        body: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['"Playfair Display"', 'ui-serif', 'Georgia', 'serif'],
       },
       colors: {
         border: "hsl(var(--border))",
