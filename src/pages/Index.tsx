@@ -45,39 +45,39 @@ const Index = () => {
   return (
     <Layout>
       {/* ─────────── Hero — editorial split ─────────── */}
-      <section ref={heroRef} className="relative min-h-[100svh] pt-32 pb-20 overflow-hidden bg-background">
+      <section ref={heroRef} className="relative min-h-[100svh] pt-24 sm:pt-28 md:pt-32 pb-16 md:pb-20 overflow-hidden bg-background">
         {/* Background flourish */}
         <motion.div
           style={{ y: markY }}
           aria-hidden
-          className="absolute -top-40 -right-40 w-[680px] h-[680px] rounded-full bg-primary/10 blur-3xl"
+          className="absolute -top-32 -right-32 w-[420px] h-[420px] md:w-[680px] md:h-[680px] rounded-full bg-primary/10 blur-3xl"
         />
         <motion.div
           style={{ y: heroY, background: "hsl(var(--primary-glow) / 0.18)" }}
           aria-hidden
-          className="absolute bottom-0 -left-40 w-[520px] h-[520px] rounded-full blur-3xl"
+          className="absolute bottom-0 -left-32 w-[320px] h-[320px] md:w-[520px] md:h-[520px] rounded-full blur-3xl"
         />
 
-        <div className="container mx-auto px-4 md:px-8 lg:px-16 relative">
+        <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-16 relative">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: EASE as unknown as [number, number, number, number] }}
-            className="eyebrow mb-8"
+            className="eyebrow mb-6 md:mb-8"
           >
             ◍ Your one-stop hub — Lagos, Nigeria
           </motion.p>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-10 items-center lg:items-end">
             <motion.div
               initial="hidden"
               animate="visible"
-              className="lg:col-span-8"
+              className="lg:col-span-8 order-2 lg:order-1"
             >
               <motion.h1
                 custom={0}
                 variants={fadeUp}
-                className="font-heading text-[14vw] md:text-[10vw] lg:text-[9vw] leading-[0.88] text-foreground text-balance"
+                className="font-heading text-[clamp(3rem,12vw,8.5rem)] lg:text-[9vw] leading-[0.9] text-foreground text-balance"
               >
                 Benji sells
                 <br />
@@ -88,17 +88,17 @@ const Index = () => {
               <motion.p
                 custom={1}
                 variants={fadeUp}
-                className="drop-cap mt-10 max-w-xl text-lg md:text-xl text-muted-foreground leading-relaxed"
+                className="drop-cap mt-8 md:mt-10 max-w-xl text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed"
               >
                 A trusted hub for cars, digital services, media, and everyday products —
                 crafted with care, delivered with conviction.
               </motion.p>
 
-              <motion.div custom={2} variants={fadeUp} className="mt-10 flex flex-wrap items-center gap-4">
-                <Button asChild size="lg" className="gold-gradient text-primary-foreground font-medium px-8 h-14 rounded-full shadow-pop hover:opacity-90">
+              <motion.div custom={2} variants={fadeUp} className="mt-8 md:mt-10 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 sm:gap-4">
+                <Button asChild size="lg" className="gold-gradient text-primary-foreground font-medium px-7 sm:px-8 h-13 sm:h-14 rounded-full shadow-pop hover:opacity-90 w-full sm:w-auto">
                   <Link to="/auto-sales">Explore services <ArrowRight size={18} className="ml-2" /></Link>
                 </Button>
-                <Button asChild variant="ghost" size="lg" className="text-foreground hover:bg-muted h-14 rounded-full px-6">
+                <Button asChild variant="ghost" size="lg" className="text-foreground hover:bg-muted h-13 sm:h-14 rounded-full px-6 w-full sm:w-auto">
                   <Link to="/store">
                     <span className="font-heading italic text-lg mr-2">Shop</span>
                     <ArrowUpRight size={18} />
@@ -111,14 +111,14 @@ const Index = () => {
               initial={{ opacity: 0, scale: 0.9, rotate: -4 }}
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
               transition={{ duration: 1, delay: 0.3, ease: EASE as unknown as [number, number, number, number] }}
-              className="lg:col-span-4 relative flex justify-center lg:justify-end"
+              className="lg:col-span-4 relative flex justify-center lg:justify-end order-1 lg:order-2"
             >
               <div className="relative">
-                <div className="absolute -inset-10 rounded-full bg-primary/15 blur-3xl" />
-                <div className="relative w-64 md:w-80 aspect-square rounded-[2.5rem] overflow-hidden ink-gradient grain p-8 flex items-end justify-center shadow-pop">
+                <div className="absolute -inset-8 md:-inset-10 rounded-full bg-primary/15 blur-3xl" />
+                <div className="relative w-52 sm:w-64 md:w-80 aspect-square rounded-[2rem] md:rounded-[2.5rem] overflow-hidden ink-gradient grain p-6 md:p-8 flex items-end justify-center shadow-pop">
                   <img src={benjiMascot} alt="Benji mascot" className="w-full drop-shadow-2xl" />
                 </div>
-                <span className="absolute -top-3 -left-3 bg-card border border-border rounded-full px-4 py-1.5 text-xs font-medium shadow-soft">
+                <span className="absolute -top-3 -left-3 bg-card border border-border rounded-full px-3 sm:px-4 py-1.5 text-[10px] sm:text-xs font-medium shadow-soft whitespace-nowrap">
                   ★ 4.9 · 500+ reviews
                 </span>
               </div>
