@@ -47,7 +47,7 @@ const Contact = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.25, ease: EASE as unknown as [number, number, number, number] }}
-            className="mt-8 max-w-xl text-lg text-muted-foreground leading-relaxed"
+            className="drop-cap mt-8 max-w-xl text-lg text-muted-foreground leading-relaxed"
           >
             Got a question, a project, or just a curious idea? Drop us a note — we usually reply within a day.
           </motion.p>
