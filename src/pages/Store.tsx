@@ -122,14 +122,14 @@ const Store = () => {
   return (
     <Layout>
       {/* Hero */}
-      <section className="relative pt-36 pb-20 px-4 md:px-8 lg:px-16 overflow-hidden bg-background">
-        <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-primary/10 blur-3xl" aria-hidden />
+      <section className="relative pt-28 md:pt-36 pb-14 md:pb-20 px-4 md:px-8 lg:px-16 overflow-hidden bg-background">
+        <div className="absolute -top-40 -right-40 w-[400px] h-[400px] md:w-[600px] md:h-[600px] rounded-full bg-primary/10 blur-3xl" aria-hidden />
         <div className="container mx-auto relative">
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="eyebrow mb-6"
+            className="eyebrow mb-4 md:mb-6"
           >
             ◍ Benji store
           </motion.p>
@@ -137,7 +137,7 @@ const Store = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-            className="font-heading text-6xl md:text-9xl leading-[0.92] text-balance max-w-5xl"
+            className="font-heading text-[clamp(2.75rem,11vw,8rem)] leading-[0.92] text-balance max-w-5xl"
           >
             Buy & sell
             <br />
@@ -147,7 +147,7 @@ const Store = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.25, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-            className="mt-8 max-w-xl text-lg text-muted-foreground leading-relaxed"
+            className="mt-6 md:mt-8 max-w-xl text-base md:text-lg text-muted-foreground leading-relaxed"
           >
             Electronics, fashion, home items, accessories, and curated everyday deals — all in one trusted place.
           </motion.p>
@@ -172,7 +172,7 @@ const Store = () => {
                 <motion.span variants={fadeUp} custom={0} className="text-primary font-semibold text-sm tracking-widest uppercase mb-3 block">
                   Shopify Products
                 </motion.span>
-                <motion.h2 variants={fadeUp} custom={1} className="font-heading text-5xl md:text-6xl">
+                <motion.h2 variants={fadeUp} custom={1} className="font-heading text-[clamp(2.25rem,7vw,4rem)] leading-[1]">
                   Shop <span className="text-primary">Online</span>
                 </motion.h2>
               </motion.div>
@@ -246,7 +246,7 @@ const Store = () => {
             <motion.span variants={fadeUp} custom={0} className="text-primary font-semibold text-sm tracking-widest uppercase mb-3 block">
               Browse Collection
             </motion.span>
-            <motion.h2 variants={fadeUp} custom={1} className="font-heading text-5xl md:text-6xl mb-6">
+            <motion.h2 variants={fadeUp} custom={1} className="font-heading text-[clamp(2.25rem,7vw,4rem)] leading-[1] mb-6">
               Browse <span className="text-primary">Catalog</span>
             </motion.h2>
           </motion.div>

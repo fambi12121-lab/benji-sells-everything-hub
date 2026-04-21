@@ -61,20 +61,20 @@ const AutoSales = () => {
   return (
     <Layout>
       {/* Hero */}
-      <section className="relative pt-36 pb-16 px-4 md:px-8 lg:px-16 overflow-hidden bg-background">
-        <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-primary/10 blur-3xl" aria-hidden />
+      <section className="relative pt-28 md:pt-36 pb-12 md:pb-16 px-4 md:px-8 lg:px-16 overflow-hidden bg-background">
+        <div className="absolute -top-40 -right-40 w-[400px] h-[400px] md:w-[600px] md:h-[600px] rounded-full bg-primary/10 blur-3xl" aria-hidden />
         <div className="container mx-auto relative">
-          <p className="eyebrow mb-6">◐ Auto sales</p>
-          <h1 className="font-heading text-6xl md:text-9xl leading-[0.92] text-balance max-w-5xl">
+          <p className="eyebrow mb-4 md:mb-6">◐ Auto sales</p>
+          <h1 className="font-heading text-[clamp(2.75rem,11vw,8rem)] leading-[0.92] text-balance max-w-5xl">
             Find your <span className="italic text-primary">perfect</span>
             <br />
             ride.
           </h1>
-          <p className="mt-8 max-w-xl text-lg text-muted-foreground leading-relaxed">
+          <p className="mt-6 md:mt-8 max-w-xl text-base md:text-lg text-muted-foreground leading-relaxed">
             Quality vehicles for every budget — vetted, photographed, and ready to drive home today.
           </p>
 
-          <div className="mt-10 flex flex-col sm:flex-row gap-3 max-w-3xl">
+          <div className="mt-8 md:mt-10 flex flex-col sm:flex-row gap-3 max-w-3xl">
             <div className="relative flex-1">
               <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" />
               <Input
@@ -90,7 +90,7 @@ const AutoSales = () => {
                   key={f.key}
                   variant={filter === f.key ? "default" : "outline"}
                   onClick={() => setFilter(f.key)}
-                  className={`h-12 rounded-full px-5 ${filter === f.key ? "gold-gradient text-primary-foreground border-0" : "bg-card"}`}
+                  className={`h-12 rounded-full px-5 flex-1 sm:flex-none ${filter === f.key ? "gold-gradient text-primary-foreground border-0" : "bg-card"}`}
                 >
                   {f.label}
                 </Button>
@@ -101,7 +101,7 @@ const AutoSales = () => {
       </section>
 
       {/* Listings */}
-      <section className="px-4 md:px-8 lg:px-16 pb-28">
+      <section className="px-4 md:px-8 lg:px-16 pb-20 md:pb-28">
         <div className="container mx-auto">
           <div className="flex items-center justify-between mb-8">
             <p className="text-sm text-muted-foreground">
