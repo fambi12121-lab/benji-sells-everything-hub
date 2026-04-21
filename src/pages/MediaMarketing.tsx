@@ -116,7 +116,7 @@ const MediaMarketing = () => (
         </motion.div>
 
         <div className="text-center mt-12 md:mt-16">
-          <Button asChild className="gold-gradient text-primary-foreground font-medium px-8 h-14 rounded-full shadow-pop hover:opacity-90 w-full sm:w-auto">
+          <Button asChild className="gold-gradient text-primary-foreground font-medium px-8 h-12 sm:h-14 rounded-full shadow-pop hover:opacity-90 w-full sm:w-auto justify-center">
             <Link to="/contact">Book media services <ArrowUpRight size={18} className="ml-2" /></Link>
           </Button>
         </div>

@@ -77,7 +77,7 @@ const Contact = () => {
               </div>
               <Input placeholder="Subject" value={form.subject} onChange={(e) => setForm({ ...form, subject: e.target.value })} required className="h-12 rounded-xl" />
               <Textarea placeholder="Tell us a little about your project or question…" rows={6} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} required className="rounded-xl resize-none" />
-              <Button type="submit" className="gold-gradient text-primary-foreground font-medium px-8 h-13 py-6 rounded-full shadow-pop hover:opacity-90 w-full sm:w-auto">
+              <Button type="submit" className="gold-gradient text-primary-foreground font-medium px-8 h-12 sm:h-14 rounded-full shadow-pop hover:opacity-90 w-full sm:w-auto justify-center">
                 <Send size={16} className="mr-2" /> Send message
               </Button>
             </motion.form>

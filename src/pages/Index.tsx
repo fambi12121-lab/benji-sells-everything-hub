@@ -94,11 +94,11 @@ const Index = () => {
                 crafted with care, delivered with conviction.
               </motion.p>
 
-              <motion.div custom={2} variants={fadeUp} className="mt-8 md:mt-10 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 sm:gap-4">
-                <Button asChild size="lg" className="gold-gradient text-primary-foreground font-medium px-7 sm:px-8 h-13 sm:h-14 rounded-full shadow-pop hover:opacity-90 w-full sm:w-auto">
+              <motion.div custom={2} variants={fadeUp} className="mt-8 md:mt-10 flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3 sm:gap-4">
+                <Button asChild size="lg" className="gold-gradient text-primary-foreground font-medium px-7 sm:px-8 h-12 sm:h-14 rounded-full shadow-pop hover:opacity-90 w-full sm:w-auto justify-center">
                   <Link to="/auto-sales">Explore services <ArrowRight size={18} className="ml-2" /></Link>
                 </Button>
-                <Button asChild variant="ghost" size="lg" className="text-foreground hover:bg-muted h-13 sm:h-14 rounded-full px-6 w-full sm:w-auto">
+                <Button asChild variant="ghost" size="lg" className="text-foreground hover:bg-muted h-12 sm:h-14 rounded-full px-6 w-full sm:w-auto justify-center">
                   <Link to="/store">
                     <span className="font-heading italic text-lg mr-2">Shop</span>
                     <ArrowUpRight size={18} />
@@ -232,7 +232,7 @@ const Index = () => {
               <p className="text-secondary-foreground/60 leading-relaxed mb-8 md:mb-10 max-w-xl text-sm sm:text-base">
                 Whether you need a reliable car, a stunning website, professional media content, or just want to shop for great deals — our friendly bear represents the warmth, trust, and hustle we bring to every transaction.
               </p>
-              <Button asChild variant="outline" className="border-secondary-foreground/30 text-secondary-foreground hover:bg-secondary-foreground/10 h-12 rounded-full px-7 w-full sm:w-auto">
+              <Button asChild variant="outline" className="border-secondary-foreground/30 text-secondary-foreground hover:bg-secondary-foreground/10 h-12 sm:h-14 rounded-full px-7 w-full sm:w-auto justify-center">
                 <Link to="/contact">Get in touch <ArrowUpRight size={16} className="ml-2" /></Link>
               </Button>
             </motion.div>
@@ -317,11 +317,11 @@ const Index = () => {
             <br />
             <span className="italic">it happen.</span>
           </motion.h2>
-          <motion.div variants={fadeUp} custom={2} className="flex flex-col sm:flex-row flex-wrap gap-3 justify-center items-stretch sm:items-center">
-            <Button asChild size="lg" className="bg-secondary text-secondary-foreground hover:bg-secondary/90 rounded-full h-13 sm:h-14 px-7 sm:px-8 font-medium w-full sm:w-auto">
+          <motion.div variants={fadeUp} custom={2} className="flex flex-col sm:flex-row sm:flex-wrap gap-3 justify-center items-stretch sm:items-center">
+            <Button asChild size="lg" className="bg-secondary text-secondary-foreground hover:bg-secondary/90 rounded-full h-12 sm:h-14 px-7 sm:px-8 font-medium w-full sm:w-auto justify-center">
               <Link to="/contact">Start a conversation <ArrowRight size={18} className="ml-2" /></Link>
             </Button>
-            <Button asChild size="lg" variant="ghost" className="text-primary-foreground hover:bg-primary-foreground/10 rounded-full h-13 sm:h-14 px-7 w-full sm:w-auto">
+            <Button asChild size="lg" variant="ghost" className="text-primary-foreground hover:bg-primary-foreground/10 rounded-full h-12 sm:h-14 px-7 w-full sm:w-auto justify-center">
               <Link to="/store">Browse the store</Link>
             </Button>
           </motion.div>
