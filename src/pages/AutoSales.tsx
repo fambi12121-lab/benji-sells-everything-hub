@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Search } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Search, ArrowUpRight, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Layout from "@/components/Layout";
@@ -84,13 +85,13 @@ const AutoSales = () => {
                 className="pl-11 h-12 rounded-full bg-card border-border"
               />
             </div>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2 w-full sm:w-auto">
               {filters.map((f) => (
                 <Button
                   key={f.key}
                   variant={filter === f.key ? "default" : "outline"}
                   onClick={() => setFilter(f.key)}
-                  className={`h-12 rounded-full px-5 flex-1 sm:flex-none ${filter === f.key ? "gold-gradient text-primary-foreground border-0" : "bg-card"}`}
+                  className={`h-12 sm:h-14 rounded-full px-5 w-full sm:w-auto justify-center ${filter === f.key ? "gold-gradient text-primary-foreground border-0" : "bg-card"}`}
                 >
                   {f.label}
                 </Button>
@@ -138,6 +139,20 @@ const AutoSales = () => {
           {filtered.length === 0 && (
             <p className="text-center text-muted-foreground py-16 font-heading italic text-2xl">No cars match your search.</p>
           )}
+
+          {/* Page CTAs */}
+          <div className="mt-14 md:mt-20 flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center justify-center gap-3 sm:gap-4">
+            <Button
+              onClick={() => { setFilter("all"); setSearch(""); }}
+              size="lg"
+              className="gold-gradient text-primary-foreground font-medium px-7 sm:px-8 h-12 sm:h-14 rounded-full shadow-pop hover:opacity-90 w-full sm:w-auto justify-center"
+            >
+              View all vehicles <ArrowRight size={18} className="ml-2" />
+            </Button>
+            <Button asChild size="lg" variant="outline" className="h-12 sm:h-14 rounded-full px-7 w-full sm:w-auto justify-center bg-card">
+              <Link to="/contact">Explore financing <ArrowUpRight size={18} className="ml-2" /></Link>
+            </Button>
+          </div>
         </div>
       </section>
     </Layout>
