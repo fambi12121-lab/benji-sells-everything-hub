@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ShoppingBag } from "lucide-react";
 import { useShopifyCartStore } from "@/stores/shopifyCartStore";
+import benjiLogo from "@/assets/benji-logo.jpeg";
 
 const navLinks = [
   { label: "Home", to: "/" },
