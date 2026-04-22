@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ShoppingBag } from "lucide-react";
 import { useShopifyCartStore } from "@/stores/shopifyCartStore";
+import benjiLogo from "@/assets/benji-logo.jpeg";
 
 const navLinks = [
   { label: "Home", to: "/" },
@@ -41,7 +42,12 @@ const Navbar = () => {
           }`}
         >
           {/* Wordmark */}
-          <Link to="/" className="flex items-baseline gap-2 pl-3">
+          <Link to="/" className="flex items-center gap-2 pl-1">
+            <img
+              src={benjiLogo}
+              alt="Benji Sells Everything mascot"
+              className="h-10 w-10 sm:h-11 sm:w-11 object-contain rounded-full"
+            />
             <span className="font-heading italic text-2xl text-foreground leading-none">
               Benji
             </span>
