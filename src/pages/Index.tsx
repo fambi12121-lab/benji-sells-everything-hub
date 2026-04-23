@@ -171,13 +171,14 @@ const Index = () => {
               transition={{ duration: 1, delay: 0.3, ease: EASE as unknown as [number, number, number, number] }}
               className="lg:col-span-4 relative flex justify-center lg:justify-end order-1 lg:order-2"
             >
-              <div className="relative">
-                <div className="absolute -inset-8 md:-inset-10 rounded-full bg-primary/15 blur-3xl" />
-                <div className="relative w-52 sm:w-64 md:w-80 aspect-square rounded-[2rem] md:rounded-[2.5rem] overflow-hidden ink-gradient grain p-6 md:p-8 flex items-end justify-center shadow-pop">
+              <div className="relative w-full max-w-[20rem] sm:max-w-sm md:max-w-md lg:max-w-none">
+                <div className="absolute -inset-6 sm:-inset-8 md:-inset-10 rounded-full bg-primary/15 blur-3xl" />
+                <div className="relative mx-auto w-[78vw] max-w-[18rem] sm:w-72 md:w-80 lg:w-[22rem] aspect-square rounded-[2rem] md:rounded-[2.5rem] overflow-hidden ink-gradient grain p-4 sm:p-6 md:p-8 flex items-center justify-center shadow-pop">
                   <img
                     src={benjiMascot}
                     alt="Benji mascot"
-                    className="w-full drop-shadow-2xl"
+                    loading="eager"
+                    className="w-full h-full object-contain drop-shadow-2xl"
                     onError={(e) => {
                       const img = e.currentTarget;
                       if (img.src !== benjiMascotFallback) {
@@ -188,10 +189,10 @@ const Index = () => {
                     }}
                   />
                 </div>
-                <span className="absolute -top-3 -left-3 bg-card border border-border rounded-full px-3 sm:px-4 py-1.5 text-[10px] sm:text-xs font-medium shadow-soft whitespace-nowrap">
+                <span className="absolute -top-2 -left-2 sm:-top-3 sm:-left-3 bg-card border border-border rounded-full px-2.5 sm:px-4 py-1 sm:py-1.5 text-[9px] sm:text-xs font-medium shadow-soft whitespace-nowrap">
                   ★ 4.9 · 500+ reviews
                 </span>
-                <span className="absolute -bottom-3 -right-3 bg-primary text-primary-foreground rounded-full px-3 sm:px-4 py-1.5 text-[10px] sm:text-xs font-semibold shadow-pop whitespace-nowrap">
+                <span className="absolute -bottom-2 -right-2 sm:-bottom-3 sm:-right-3 bg-primary text-primary-foreground rounded-full px-2.5 sm:px-4 py-1 sm:py-1.5 text-[9px] sm:text-xs font-semibold shadow-pop whitespace-nowrap">
                   Free delivery in Lagos
                 </span>
               </div>
