@@ -95,6 +95,7 @@ const Index = () => {
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroY = useTransform(scrollYProgress, [0, 1], [0, 120]);
   const markY = useTransform(scrollYProgress, [0, 1], [0, -80]);
+  const [mascotLoaded, setMascotLoaded] = useState(false);
 
   return (
     <Layout>
