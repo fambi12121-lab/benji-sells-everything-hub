@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/accordion";
 import Layout from "@/components/Layout";
 import benjiMascot from "@/assets/benji-scooter.jpeg";
+import benjiMascotFallback from "@/assets/benji-mascot.png";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
@@ -173,7 +174,19 @@ const Index = () => {
               <div className="relative">
                 <div className="absolute -inset-8 md:-inset-10 rounded-full bg-primary/15 blur-3xl" />
                 <div className="relative w-52 sm:w-64 md:w-80 aspect-square rounded-[2rem] md:rounded-[2.5rem] overflow-hidden ink-gradient grain p-6 md:p-8 flex items-end justify-center shadow-pop">
-                  <img src={benjiMascot} alt="Benji mascot" className="w-full drop-shadow-2xl" />
+                  <img
+                    src={benjiMascot}
+                    alt="Benji mascot"
+                    className="w-full drop-shadow-2xl"
+                    onError={(e) => {
+                      const img = e.currentTarget;
+                      if (img.src !== benjiMascotFallback) {
+                        img.src = benjiMascotFallback;
+                      } else {
+                        img.src = "/placeholder.svg";
+                      }
+                    }}
+                  />
                 </div>
                 <span className="absolute -top-3 -left-3 bg-card border border-border rounded-full px-3 sm:px-4 py-1.5 text-[10px] sm:text-xs font-medium shadow-soft whitespace-nowrap">
                   ★ 4.9 · 500+ reviews
