@@ -175,6 +175,20 @@ const Index = () => {
               <div className="relative w-full max-w-[20rem] sm:max-w-sm md:max-w-md lg:max-w-none">
                 <div aria-hidden className="absolute -inset-6 sm:-inset-8 md:-inset-10 rounded-full bg-primary/15 blur-3xl" />
                 <div className="relative mx-auto aspect-square w-[min(78vw,18rem)] sm:w-72 md:w-80 lg:w-[22rem] rounded-[2rem] md:rounded-[2.5rem] overflow-hidden ink-gradient grain shadow-pop">
+                  {/* Skeleton / blur placeholder — fades out when image loads */}
+                  <div
+                    aria-hidden
+                    className={`absolute inset-0 transition-opacity duration-700 ${
+                      mascotLoaded ? "opacity-0" : "opacity-100"
+                    }`}
+                  >
+                    <div className="absolute inset-0 bg-[linear-gradient(110deg,hsl(var(--primary)/0.10)_8%,hsl(var(--primary)/0.25)_18%,hsl(var(--primary)/0.10)_33%)] bg-[length:200%_100%] animate-[shimmer_1.6s_linear_infinite]" />
+                    <div className="absolute inset-0 backdrop-blur-md" />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="h-2/3 w-2/3 rounded-full bg-primary/15 blur-2xl" />
+                    </div>
+                  </div>
+
                   {/* Letterbox: consistent inset around the image at every size */}
                   <div className="absolute inset-0 flex items-center justify-center p-[10%] sm:p-[12%] md:p-[14%]">
                     <picture className="block w-full h-full">
@@ -187,13 +201,17 @@ const Index = () => {
                         decoding="async"
                         fetchPriority="high"
                         draggable={false}
-                        className="w-full h-full object-contain drop-shadow-2xl select-none"
+                        onLoad={() => setMascotLoaded(true)}
+                        className={`w-full h-full object-contain drop-shadow-2xl select-none transition-opacity duration-700 ${
+                          mascotLoaded ? "opacity-100" : "opacity-0"
+                        }`}
                         onError={(e) => {
                           const img = e.currentTarget;
                           if (img.src !== benjiMascotFallback) {
                             img.src = benjiMascotFallback;
                           } else {
                             img.src = "/placeholder.svg";
+                            setMascotLoaded(true);
                           }
                         }}
                       />
