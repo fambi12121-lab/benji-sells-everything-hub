@@ -12,7 +12,7 @@ import Layout from "@/components/Layout";
 import benjiMascot from "@/assets/benji-scooter.jpeg";
 import benjiMascotFallback from "@/assets/benji-mascot.png";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 import smartwatch from "@/assets/products/smartwatch-elite.jpg";
 import headphones from "@/assets/products/headphones.jpg";
