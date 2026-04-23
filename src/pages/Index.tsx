@@ -9,7 +9,7 @@ import {
   Accordion, AccordionContent, AccordionItem, AccordionTrigger,
 } from "@/components/ui/accordion";
 import Layout from "@/components/Layout";
-import benjiMascot from "@/assets/benji-mascot.png";
+import benjiMascot from "@/assets/benji-scooter.jpeg";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
