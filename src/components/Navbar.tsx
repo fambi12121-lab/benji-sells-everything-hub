@@ -42,16 +42,20 @@ const Navbar = () => {
           }`}
         >
           {/* Wordmark */}
-          <Link to="/" className="flex items-center gap-2 pl-1">
+          <Link to="/" className="flex items-center gap-2 sm:gap-3 pl-1">
             <img
               src={benjiLogo}
               alt="Benji Sells Everything mascot"
-              className="h-10 w-10 sm:h-11 sm:w-11 object-contain rounded-full"
+              className={`object-contain rounded-full transition-all duration-500 ${
+                scrolled
+                  ? "h-8 w-8 sm:h-9 sm:w-9 lg:h-10 lg:w-10"
+                  : "h-9 w-9 sm:h-11 sm:w-11 lg:h-12 lg:w-12"
+              }`}
             />
-            <span className="font-heading italic text-2xl text-foreground leading-none">
+            <span className="font-heading italic text-xl sm:text-2xl lg:text-[1.65rem] text-foreground leading-none">
               Benji
             </span>
-            <span className="hidden sm:inline text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+            <span className="hidden md:inline text-[10px] lg:text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
               Sells Everything
             </span>
           </Link>
