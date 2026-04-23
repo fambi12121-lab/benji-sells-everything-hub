@@ -165,30 +165,43 @@ const Index = () => {
               </motion.div>
             </motion.div>
 
-            <motion.div
+            <motion.figure
               initial={{ opacity: 0, scale: 0.9, rotate: -4 }}
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
               transition={{ duration: 1, delay: 0.3, ease: EASE as unknown as [number, number, number, number] }}
-              className="lg:col-span-4 relative flex justify-center lg:justify-end order-1 lg:order-2"
+              className="lg:col-span-4 relative flex justify-center lg:justify-end order-1 lg:order-2 m-0 px-2 sm:px-4 lg:px-0 w-full"
             >
               <div className="relative w-full max-w-[20rem] sm:max-w-sm md:max-w-md lg:max-w-none">
-                <div className="absolute -inset-6 sm:-inset-8 md:-inset-10 rounded-full bg-primary/15 blur-3xl" />
-                <div className="relative mx-auto w-[78vw] max-w-[18rem] sm:w-72 md:w-80 lg:w-[22rem] aspect-square rounded-[2rem] md:rounded-[2.5rem] overflow-hidden ink-gradient grain p-4 sm:p-6 md:p-8 flex items-center justify-center shadow-pop">
-                  <img
-                    src={benjiMascot}
-                    alt="Benji mascot"
-                    loading="eager"
-                    className="w-full h-full object-contain drop-shadow-2xl"
-                    onError={(e) => {
-                      const img = e.currentTarget;
-                      if (img.src !== benjiMascotFallback) {
-                        img.src = benjiMascotFallback;
-                      } else {
-                        img.src = "/placeholder.svg";
-                      }
-                    }}
-                  />
+                <div aria-hidden className="absolute -inset-6 sm:-inset-8 md:-inset-10 rounded-full bg-primary/15 blur-3xl" />
+                <div className="relative mx-auto aspect-square w-[min(78vw,18rem)] sm:w-72 md:w-80 lg:w-[22rem] rounded-[2rem] md:rounded-[2.5rem] overflow-hidden ink-gradient grain shadow-pop">
+                  {/* Letterbox: consistent inset around the image at every size */}
+                  <div className="absolute inset-0 flex items-center justify-center p-[10%] sm:p-[12%] md:p-[14%]">
+                    <picture className="block w-full h-full">
+                      <img
+                        src={benjiMascot}
+                        alt="Benji the bear mascot riding a delivery scooter"
+                        width={512}
+                        height={512}
+                        loading="eager"
+                        decoding="async"
+                        fetchPriority="high"
+                        draggable={false}
+                        className="w-full h-full object-contain drop-shadow-2xl select-none"
+                        onError={(e) => {
+                          const img = e.currentTarget;
+                          if (img.src !== benjiMascotFallback) {
+                            img.src = benjiMascotFallback;
+                          } else {
+                            img.src = "/placeholder.svg";
+                          }
+                        }}
+                      />
+                    </picture>
+                  </div>
                 </div>
+                <figcaption className="sr-only">
+                  Benji Sells Everything mascot — fast, friendly delivery across Lagos.
+                </figcaption>
                 <span className="absolute -top-2 -left-2 sm:-top-3 sm:-left-3 bg-card border border-border rounded-full px-2.5 sm:px-4 py-1 sm:py-1.5 text-[9px] sm:text-xs font-medium shadow-soft whitespace-nowrap">
                   ★ 4.9 · 500+ reviews
                 </span>
@@ -196,7 +209,7 @@ const Index = () => {
                   Free delivery in Lagos
                 </span>
               </div>
-            </motion.div>
+            </motion.figure>
           </div>
         </div>
 
