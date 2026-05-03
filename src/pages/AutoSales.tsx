@@ -161,6 +161,12 @@ const AutoSales = () => {
           </div>
         </div>
       </section>
+
+      <CarDetailModal
+        car={selectedCar}
+        open={!!selectedCar}
+        onOpenChange={(open) => { if (!open) setSelectedCar(null); }}
+      />
     </Layout>
   );
 };
