@@ -87,7 +87,7 @@ const CarDetailModal = ({ car, open, onOpenChange }: CarDetailModalProps) => {
           </div>
         </div>
 
-        <div className="p-5 sm:p-7 space-y-6">
+        <div className="p-5 sm:p-7 space-y-6 overflow-y-auto flex-1 min-h-0">
           {/* Price */}
           <div className="flex items-end justify-between">
             <div>
