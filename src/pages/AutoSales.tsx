@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import CarDetailModal from "@/components/CarDetailModal";
 import { Search, ArrowUpRight, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -52,6 +53,7 @@ const filters: { key: "all" | Category; label: string }[] = [
 const AutoSales = () => {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<"all" | Category>("all");
+  const [selectedCar, setSelectedCar] = useState<(typeof cars)[number] | null>(null);
 
   const filtered = cars.filter((c) => {
     const matchSearch = c.name.toLowerCase().includes(search.toLowerCase());
@@ -112,7 +114,11 @@ const AutoSales = () => {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filtered.map((car) => (
-              <article key={car.id} className="group bg-card rounded-2xl border border-border overflow-hidden card-hover">
+              <article
+                key={car.id}
+                className="group bg-card rounded-2xl border border-border overflow-hidden card-hover cursor-pointer"
+                onClick={() => setSelectedCar(car)}
+              >
                 <div className="aspect-[4/3] overflow-hidden bg-muted">
                   <img
                     src={car.img}
@@ -155,6 +161,12 @@ const AutoSales = () => {
           </div>
         </div>
       </section>
+
+      <CarDetailModal
+        car={selectedCar}
+        open={!!selectedCar}
+        onOpenChange={(open) => { if (!open) setSelectedCar(null); }}
+      />
     </Layout>
   );
 };
