@@ -33,7 +33,6 @@ interface CarDetailModalProps {
   onOpenChange: (open: boolean) => void;
 }
 
-/* Placeholder specs — in production these would come from data */
 const getSpecs = (car: CarData) => {
   const specMap: Record<string, { engine: string; fuel: string; transmission: string; mileage: string; color: string; drive: string }> = {
     Toyota: { engine: "2.5L 4-Cylinder", fuel: "Petrol", transmission: "Automatic", mileage: "42,000 km", color: "Pearl White", drive: "FWD" },
@@ -67,20 +66,20 @@ const CarDetailModal = ({ car, open, onOpenChange }: CarDetailModalProps) => {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto p-0 rounded-2xl border-border bg-card">
-        {/* Hero image */}
-        <div className="relative aspect-[16/9] overflow-hidden rounded-t-2xl bg-muted">
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto p-0 gap-0 rounded-2xl border-border bg-card">
+        {/* Hero image — smaller aspect ratio */}
+        <div className="relative aspect-[2/1] sm:aspect-[16/9] overflow-hidden rounded-t-2xl bg-muted shrink-0">
           <img
             src={car.img}
             alt={car.name}
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
           <div className="absolute bottom-4 left-5 right-5">
             <p className="text-[10px] uppercase tracking-[0.25em] text-white/70 mb-1">
               {car.brand}
             </p>
-            <DialogHeader>
+            <DialogHeader className="space-y-0">
               <DialogTitle className="text-white font-heading text-2xl sm:text-3xl leading-tight">
                 {car.name}
               </DialogTitle>
@@ -88,7 +87,7 @@ const CarDetailModal = ({ car, open, onOpenChange }: CarDetailModalProps) => {
           </div>
         </div>
 
-        <div className="p-5 sm:p-7 space-y-7">
+        <div className="p-5 sm:p-7 space-y-6">
           {/* Price */}
           <div className="flex items-end justify-between">
             <div>
@@ -104,14 +103,14 @@ const CarDetailModal = ({ car, open, onOpenChange }: CarDetailModalProps) => {
 
           {/* Specs grid */}
           <div>
-            <p className="eyebrow mb-4">Specifications</p>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            <p className="eyebrow mb-3">Specifications</p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
               {specItems.map((s) => (
                 <div
                   key={s.label}
-                  className="rounded-xl border border-border bg-muted/40 p-3.5"
+                  className="rounded-xl border border-border bg-muted/40 p-3"
                 >
-                  <s.icon size={16} className="text-primary mb-2" />
+                  <s.icon size={14} className="text-primary mb-1.5" />
                   <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-0.5">
                     {s.label}
                   </p>
@@ -123,14 +122,14 @@ const CarDetailModal = ({ car, open, onOpenChange }: CarDetailModalProps) => {
 
           {/* Gallery placeholders */}
           <div>
-            <p className="eyebrow mb-4">Gallery</p>
+            <p className="eyebrow mb-3">Gallery</p>
             <div className="grid grid-cols-3 gap-2">
               {[1, 2, 3].map((i) => (
                 <div
                   key={i}
                   className="aspect-[4/3] rounded-xl bg-muted border border-border flex flex-col items-center justify-center gap-1 text-muted-foreground"
                 >
-                  <ImageIcon size={20} />
+                  <ImageIcon size={18} />
                   <span className="text-[10px]">Photo {i}</span>
                 </div>
               ))}
@@ -138,7 +137,7 @@ const CarDetailModal = ({ car, open, onOpenChange }: CarDetailModalProps) => {
           </div>
 
           {/* CTA */}
-          <div className="flex flex-col sm:flex-row gap-3 pt-2">
+          <div className="flex flex-col sm:flex-row gap-3 pt-1">
             <Button
               asChild
               size="lg"
