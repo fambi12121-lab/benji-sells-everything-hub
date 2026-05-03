@@ -53,6 +53,7 @@ const filters: { key: "all" | Category; label: string }[] = [
 const AutoSales = () => {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<"all" | Category>("all");
+  const [selectedCar, setSelectedCar] = useState<(typeof cars)[number] | null>(null);
 
   const filtered = cars.filter((c) => {
     const matchSearch = c.name.toLowerCase().includes(search.toLowerCase());
