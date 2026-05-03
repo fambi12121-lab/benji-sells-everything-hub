@@ -170,11 +170,11 @@ const Index = () => {
               initial={{ opacity: 0, scale: 0.9, rotate: -4 }}
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
               transition={{ duration: 1, delay: 0.3, ease: EASE as unknown as [number, number, number, number] }}
-              className="lg:col-span-4 relative flex justify-center lg:justify-end order-1 lg:order-2 m-0 px-2 sm:px-4 lg:px-0 w-full"
+              className="lg:col-span-4 relative flex justify-center lg:justify-end order-1 lg:order-2 m-0 px-4 sm:px-6 lg:px-0 w-full"
             >
-              <div className="relative w-full max-w-[20rem] sm:max-w-sm md:max-w-md lg:max-w-none">
+              <div className="relative w-full max-w-[18rem] sm:max-w-sm md:max-w-md lg:max-w-none mx-auto">
                 <div aria-hidden className="absolute -inset-6 sm:-inset-8 md:-inset-10 rounded-full bg-primary/15 blur-3xl" />
-                <div className="relative mx-auto aspect-square w-[min(78vw,18rem)] sm:w-72 md:w-80 lg:w-[22rem] rounded-[2rem] md:rounded-[2.5rem] overflow-hidden ink-gradient grain shadow-pop">
+                <div className="relative mx-auto aspect-square w-[min(72vw,16rem)] sm:w-72 md:w-80 lg:w-[22rem] rounded-[2rem] md:rounded-[2.5rem] overflow-hidden ink-gradient grain shadow-pop">
                   {/* Skeleton / blur placeholder — fades out when image loads */}
                   <div
                     aria-hidden
