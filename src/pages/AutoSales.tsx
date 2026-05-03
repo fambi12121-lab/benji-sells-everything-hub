@@ -114,7 +114,11 @@ const AutoSales = () => {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filtered.map((car) => (
-              <article key={car.id} className="group bg-card rounded-2xl border border-border overflow-hidden card-hover">
+              <article
+                key={car.id}
+                className="group bg-card rounded-2xl border border-border overflow-hidden card-hover cursor-pointer"
+                onClick={() => setSelectedCar(car)}
+              >
                 <div className="aspect-[4/3] overflow-hidden bg-muted">
                   <img
                     src={car.img}
