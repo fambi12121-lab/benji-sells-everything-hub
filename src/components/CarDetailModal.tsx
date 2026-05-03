@@ -66,7 +66,7 @@ const CarDetailModal = ({ car, open, onOpenChange }: CarDetailModalProps) => {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto p-0 gap-0 rounded-2xl border-border bg-card">
+      <DialogContent className="max-w-2xl max-h-[90vh] p-0 gap-0 rounded-2xl border-border bg-card flex flex-col overflow-hidden [display:flex]">
         {/* Hero image — smaller aspect ratio */}
         <div className="relative aspect-[2/1] sm:aspect-[16/9] overflow-hidden rounded-t-2xl bg-muted shrink-0">
           <img
