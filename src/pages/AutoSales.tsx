@@ -20,6 +20,14 @@ import focusImg from "@/assets/cars/focus.jpg";
 import cayenneImg from "@/assets/cars/cayenne.jpg";
 import pradoImg from "@/assets/cars/prado.jpg";
 import q7Img from "@/assets/cars/q7.jpg";
+import accordImg from "@/assets/cars/accord.jpg";
+import highlanderImg from "@/assets/cars/highlander.jpg";
+import gleImg from "@/assets/cars/gle.jpg";
+import rav4Img from "@/assets/cars/rav4.jpg";
+import bmw3Img from "@/assets/cars/bmw3.jpg";
+import sonataImg from "@/assets/cars/sonata.jpg";
+import cx5Img from "@/assets/cars/cx5.jpg";
+import es350Img from "@/assets/cars/es350.jpg";
 
 type Category = "under5" | "mid" | "above10";
 
@@ -28,11 +36,18 @@ const cars: { id: number; name: string; price: string; category: Category; brand
   { id: 1, name: "Kia Rio 2017", price: "₦3,200,000", category: "under5", brand: "Kia", img: kiarioImg },
   { id: 2, name: "Nissan Almera 2018", price: "₦4,100,000", category: "under5", brand: "Nissan", img: almeraImg },
   { id: 3, name: "Ford Focus 2016", price: "₦4,800,000", category: "under5", brand: "Ford", img: focusImg },
-  // ₦5M – ₦10M (kept for context)
+  { id: 15, name: "Hyundai Sonata 2014", price: "₦3,900,000", category: "under5", brand: "Hyundai", img: sonataImg },
+  { id: 16, name: "Honda Civic 2015", price: "₦4,500,000", category: "under5", brand: "Honda", img: civicImg },
+  { id: 17, name: "Toyota Corolla 2014", price: "₦4,700,000", category: "under5", brand: "Toyota", img: corollaImg },
+  // ₦5M – ₦10M
   { id: 4, name: "Toyota Camry 2020", price: "₦8,500,000", category: "mid", brand: "Toyota", img: camryImg },
   { id: 5, name: "Honda Civic 2019", price: "₦7,200,000", category: "mid", brand: "Honda", img: civicImg },
   { id: 6, name: "Toyota Corolla 2021", price: "₦9,800,000", category: "mid", brand: "Toyota", img: corollaImg },
   { id: 7, name: "Hyundai Elantra 2020", price: "₦6,500,000", category: "mid", brand: "Hyundai", img: elantraImg },
+  { id: 18, name: "Honda Accord 2019", price: "₦9,200,000", category: "mid", brand: "Honda", img: accordImg },
+  { id: 19, name: "Mazda CX-5 2018", price: "₦7,800,000", category: "mid", brand: "Mazda", img: cx5Img },
+  { id: 20, name: "Toyota RAV4 2018", price: "₦8,900,000", category: "mid", brand: "Toyota", img: rav4Img },
+  { id: 21, name: "Hyundai Sonata 2019", price: "₦6,900,000", category: "mid", brand: "Hyundai", img: sonataImg },
   // Above ₦10M
   { id: 8, name: "Mercedes-Benz E300 2022", price: "₦28,000,000", category: "above10", brand: "Mercedes", img: e300Img },
   { id: 9, name: "BMW X5 2021", price: "₦35,000,000", category: "above10", brand: "BMW", img: x5Img },
@@ -41,6 +56,10 @@ const cars: { id: number; name: string; price: string; category: Category; brand
   { id: 12, name: "Porsche Cayenne 2022", price: "₦55,000,000", category: "above10", brand: "Porsche", img: cayenneImg },
   { id: 13, name: "Toyota Land Cruiser Prado 2023", price: "₦48,000,000", category: "above10", brand: "Toyota", img: pradoImg },
   { id: 14, name: "Audi Q7 2022", price: "₦40,000,000", category: "above10", brand: "Audi", img: q7Img },
+  { id: 22, name: "Mercedes-Benz GLE 2023", price: "₦52,000,000", category: "above10", brand: "Mercedes", img: gleImg },
+  { id: 23, name: "Toyota Highlander 2021", price: "₦18,500,000", category: "above10", brand: "Toyota", img: highlanderImg },
+  { id: 24, name: "BMW 3 Series 2021", price: "₦19,800,000", category: "above10", brand: "BMW", img: bmw3Img },
+  { id: 25, name: "Lexus ES 350 2021", price: "₦21,500,000", category: "above10", brand: "Lexus", img: es350Img },
 ];
 
 const filters: { key: "all" | Category; label: string }[] = [
