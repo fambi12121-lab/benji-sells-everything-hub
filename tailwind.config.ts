@@ -13,7 +13,7 @@ export default {
     extend: {
       fontFamily: {
         heading: ['"Playfair Display"', 'ui-serif', 'Georgia', 'serif'],
-        body: ['"DM Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        body: ['"Times New Roman"', 'Times', 'ui-serif', 'Georgia', 'serif'],
         display: ['"Playfair Display"', 'ui-serif', 'Georgia', 'serif'],
       },
       colors: {
