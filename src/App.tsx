@@ -7,6 +7,7 @@ import ShopifyCartSidebar from "@/components/ShopifyCartSidebar";
 import { useCartSync } from "@/hooks/useCartSync";
 import Index from "./pages/Index";
 import AutoSales from "./pages/AutoSales";
+import VehicleDetail from "./pages/VehicleDetail";
 import DigitalServices from "./pages/DigitalServices";
 import MediaMarketing from "./pages/MediaMarketing";
 import Store from "./pages/Store";
@@ -27,6 +28,7 @@ const AppContent = () => {
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/auto-sales" element={<AutoSales />} />
+          <Route path="/auto-sales/:slug" element={<VehicleDetail />} />
           <Route path="/digital-services" element={<DigitalServices />} />
           <Route path="/media" element={<MediaMarketing />} />
           <Route path="/store" element={<Store />} />
