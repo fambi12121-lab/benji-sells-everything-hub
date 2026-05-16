@@ -80,7 +80,7 @@
     @apply scroll-smooth;
   }
   body {
-    @apply bg-background text-foreground font-body antialiased;
+    @apply bg-background text-foreground antialiased;
   }
   p {
     font-family: 'Times New Roman', Times, ui-serif, Georgia, serif;
