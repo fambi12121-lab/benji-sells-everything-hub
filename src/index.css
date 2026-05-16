@@ -87,9 +87,15 @@
     font-weight: 700;
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply font-heading tracking-tight;
-    font-feature-settings: "dlig", "liga";
+    font-family: 'Playfair Display', ui-serif, Georgia, serif;
+    font-weight: 600;
     letter-spacing: -0.015em;
+    font-feature-settings: "dlig", "liga";
+  }
+
+  nav, nav a, nav button, nav span {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 400;
   }
   ::selection {
     background: hsl(var(--primary) / 0.22);
